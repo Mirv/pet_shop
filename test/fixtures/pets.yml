@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  pet_category: one
+  location: one
+
+two:
+  name: MyString
+  description: MyText
+  pet_category: two
+  location: two

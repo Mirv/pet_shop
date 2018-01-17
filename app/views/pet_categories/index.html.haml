@@ -1,0 +1,23 @@
+%h1 Listing pet_categories
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @pet_categories.each do |pet_category|
+      %tr
+        %td= pet_category.name
+        %td= pet_category.description
+        %td= link_to 'Show', pet_category
+        %td= link_to 'Edit', edit_pet_category_path(pet_category)
+        // %td= link_to 'Destroy', pet_category, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Pet category', new_pet_category_path

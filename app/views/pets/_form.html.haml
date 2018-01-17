@@ -1,0 +1,11 @@
+= simple_form_for(@pet) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.association :pet_category
+    = f.association :location
+
+  .form-actions
+    = f.button :submit

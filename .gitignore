@@ -17,3 +17,6 @@
 /tmp
 .env
 /log
+
+# Ignore migrations - use db:schema:load in place of migration
+/db/migrate/*

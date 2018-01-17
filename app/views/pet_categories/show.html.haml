@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @pet_category.name
+%p
+  %b Description:
+  = @pet_category.description
+
+= link_to 'Edit', edit_pet_category_path(@pet_category)
+\|
+= link_to 'Back', pet_categories_path

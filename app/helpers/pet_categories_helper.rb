@@ -1,0 +1,2 @@
+module PetCategoriesHelper
+end
