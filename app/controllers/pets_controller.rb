@@ -53,13 +53,13 @@ class PetsController < ApplicationController
 
   # DELETE /pets/1
   # DELETE /pets/1.json
-  def destroy
-    @pet.destroy
-    respond_to do |format|
-      format.html { redirect_to pets_url, notice: 'Pet was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @pet.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to pets_url, notice: 'Pet was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -68,8 +68,7 @@ class PetsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    #todo remove 2 of 3 -  :pet_categories_id,  :pet_category, :pet_category_id
     def pet_params
-      params.require(:pet).permit(:name, :description, :pet_categories_id, :location_id, :pet_category, :pet_category_id)
+      params.require(:pet).permit(:name, :description, :pet_category_id, :location_id)
     end
 end
