@@ -17,7 +17,8 @@ class PetCategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create pet_category" do
     assert_difference('PetCategory.count') do
-      post pet_categories_url, params: { pet_category: { description: @pet_category.description, name: @pet_category.name } }
+      post pet_categories_url, params: { 
+        pet_category: { description: @pet_category.description, name: @pet_category.name } }
     end
 
     assert_redirected_to pet_category_url(PetCategory.last)
@@ -34,7 +35,8 @@ class PetCategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pet_category" do
-    patch pet_category_url(@pet_category), params: { pet_category: { description: @pet_category.description, name: @pet_category.name } }
+    patch pet_category_url(@pet_category), params: { 
+      pet_category: { description: @pet_category.description, name: @pet_category.name } }
     assert_redirected_to pet_category_url(@pet_category)
   end
 end
