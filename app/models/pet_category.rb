@@ -1,3 +1,3 @@
 class PetCategory < ApplicationRecord
-    # has_many :pets
+    has_many :pets
 end
