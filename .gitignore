@@ -20,3 +20,5 @@
 
 # Ignore migrations - use db:schema:load in place of migration
 /db/migrate/*
+
+/config/secrets.yml
