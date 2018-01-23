@@ -2,9 +2,13 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Workspace
+    %title Pet Shop
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    %link{rel: "stylesheet", href: "https://unpkg.com/purecss@1.0.0/build/pure-min.css", crossorigin: "anonymous"}
   %body
-    = yield
+    .layout
+      = render 'layouts/side_menu'
+      .main
+        = yield

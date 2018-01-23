@@ -1,24 +1,25 @@
-%h1 Listing locations
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Xcoordinate
-      %th Ycoordinate
-      %th
-      %th
-      %th
-
-  %tbody
-    - @locations.each do |location|
+.header
+  %h1 Listing locations
+.content
+  %table
+    %thead
       %tr
-        %td= location.name
-        %td= location.xcoordinate
-        %td= location.ycoordinate
-        %td= link_to 'Show', location
-        %td= link_to 'Edit', edit_location_path(location)
-
-%br
-
-= link_to 'New Location', new_location_path
+        %th Name
+        %th Xcoordinate
+        %th Ycoordinate
+        %th
+        %th
+        %th
+  
+    %tbody
+      - @locations.each do |location|
+        %tr
+          %td= location.name
+          %td= location.xcoordinate
+          %td= location.ycoordinate
+          %td= link_to 'Show', location
+          %td= link_to 'Edit', edit_location_path(location)
+  
+  %br
+  
+  = link_to 'New Location', new_location_path
