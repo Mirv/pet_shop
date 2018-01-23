@@ -1,18 +1,19 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @pet.name
-%p
-  %b Description:
-  = @pet.description
-%p
-  %b Pet categories:
-  = @pet.pet_category.name
-%p
-  %b Location:
-  = @pet.location.name
-
-= link_to 'Edit', edit_pet_path(@pet)
-\|
-= link_to 'Back', pets_path
+.content
+  %p#notice= notice
+  
+  %p
+    %b Name:
+    = @pet.name
+  %p
+    %b Description:
+    = @pet.description
+  %p
+    %b Pet categories:
+    = @pet.pet_category.name
+  %p
+    %b Location:
+    = @pet.location.name
+  
+  = link_to 'Edit', edit_pet_path(@pet)
+  \|
+  = link_to 'Back', pets_path

@@ -1,7 +1,5 @@
 
     Pet shop
-    ----------------------------------------------------------------- 
-
 
 Welcome to your Rails project Pet Shop!
 
@@ -10,6 +8,8 @@ A demo project
 ## Support & Documentation
 
 Repository at:  https://github.com/Mirv/pet_shop
+
+Installation
 
 For setting up DB, use `db:schema:load` 
 

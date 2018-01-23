@@ -1,21 +1,22 @@
-%h1 Listing pet_categories
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @pet_categories.each do |pet_category|
+.header
+  %h1 Listing pet_categories
+.content
+  %table
+    %thead
       %tr
-        %td= pet_category.name
-        %td= pet_category.description
-        %td= link_to 'Show', pet_category
-        %td= link_to 'Edit', edit_pet_category_path(pet_category)
-%br
-
-= link_to 'New Pet category', new_pet_category_path
+        %th Name
+        %th Description
+        %th
+        %th
+        %th
+  
+    %tbody
+      - @pet_categories.each do |pet_category|
+        %tr
+          %td= pet_category.name
+          %td= pet_category.description
+          %td= link_to 'Show', pet_category
+          %td= link_to 'Edit', edit_pet_category_path(pet_category)
+  %br
+  
+  = link_to 'New Pet category', new_pet_category_path
