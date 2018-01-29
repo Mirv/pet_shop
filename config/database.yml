@@ -1,0 +1,29 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: postgresql
+  encoding: SQL_ASCII
+  pool: 5
+  username: <% ENV['db_user'] %>
+  password: <% ENV['db_pass'] %>
+
+development:
+  <<: *default
+  database: petterdb
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: petstore
+  username: <% ENV['db_user'] %>
+  password: <% ENV['db_pass'] %>
+
+production:
+  <<: *default
+  database: petterdb

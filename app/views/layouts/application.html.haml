@@ -8,7 +8,9 @@
     = csrf_meta_tags
     %link{rel: "stylesheet", href: "https://unpkg.com/purecss@1.0.0/build/pure-min.css", crossorigin: "anonymous"}
   %body
-    .layout
+    #layout
       = render 'layouts/side_menu'
       .main
+        .header
+          = render 'layouts/devise_messages'
         = yield
