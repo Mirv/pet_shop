@@ -1,5 +1,7 @@
 .devise_messages
- - if notice
-  %p.alert.alert-success= notice
- - if alert
-  %p.alert.alert-danger= alert
+  - if notice
+    .header
+      %p.alert.alert-success= notice
+  - if alert
+    .header
+      %p.alert.alert-danger= alert
