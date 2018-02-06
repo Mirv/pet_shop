@@ -2,7 +2,7 @@
   %h1 Listing pets
 
 .content
-  %table
+  %table{class: 'pure-table'}
     %thead
       %tr
         %th Name
@@ -10,7 +10,7 @@
         %th Pet categories
         %th Location
         %th Published
-        %th 
+        %th Available
         %th
         %th
   
@@ -19,8 +19,8 @@
         %tr
           %td= pet.name
           %td= pet.description
-          %td= pet.pet_category
-          %td= pet.location
+          %td= pet.pet_category.name
+          %td= pet.location.name
           %td= pet.published
           %td= pet.available
           %td= link_to 'Show', pet

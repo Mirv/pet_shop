@@ -1,16 +1,15 @@
 .header
-  %h1 Listing pet_categories
+  %h1 Listing Pet Categories
 
 .content
-  %table
+  %table{class: 'pure-table'}
     %thead
       %tr
         %th Name
         %th Description
         %th
         %th
-        %th
-  
+
     %tbody
       - @pet_categories.each do |pet_category|
         %tr

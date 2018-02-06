@@ -4,7 +4,9 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-    @pets = Pet.all
+    @available_pets = Pet.available_pets
+    @unavailable_pets = Pet.all - @available_pets
+    @pets = @available_pets
   end
 
   # GET /pets/1
