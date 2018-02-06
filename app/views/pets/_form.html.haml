@@ -6,6 +6,9 @@
     = f.input :description
     = f.association :pet_category
     = f.association :location
+    = f.input :published
+    = f.input :available, inline_label: 'Available' 
+    = f.input :visible, inline_label: 'Visible'
 
   .form-actions
     = f.button :submit

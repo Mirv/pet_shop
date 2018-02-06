@@ -9,7 +9,8 @@
         %th Description
         %th Pet categories
         %th Location
-        %th
+        %th Published
+        %th 
         %th
         %th
   
@@ -20,6 +21,8 @@
           %td= pet.description
           %td= pet.pet_category
           %td= pet.location
+          %td= pet.published
+          %td= pet.available
           %td= link_to 'Show', pet
           %td= link_to 'Edit', edit_pet_path(pet)
   
