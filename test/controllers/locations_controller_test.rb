@@ -19,7 +19,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Location.count') do
       post locations_url, params: { 
         location: { name: @location.name, xcoordinate: @location.xcoordinate, 
-        ycoordinate: @location.ycoordinate } }
+        ycoordinate: @location.ycoordinate} }
     end
 
     assert_redirected_to location_url(Location.last)
@@ -41,5 +41,6 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
       ycoordinate: @location.ycoordinate } }
     assert_redirected_to location_url(@location)
   end
-
+  
+  test "only owner / admin can hide location"
 end

@@ -12,6 +12,8 @@
     <div class="form-inputs">
       <%= f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
       <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
+      <%= f.input :admin, label: "Are you an admin", required: true %>
+      <%= f.input :moderator, label: "Are you a moderator?", required: true %>
     </div>
   
     <div class="form-actions">

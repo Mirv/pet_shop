@@ -1,7 +1,7 @@
 .header
   %h1 Listing locations
 .content
-  %table
+  %table{class: 'pure-table'}
     %thead
       %tr
         %th Name
@@ -9,8 +9,7 @@
         %th Ycoordinate
         %th
         %th
-        %th
-  
+
     %tbody
       - @locations.each do |location|
         %tr
