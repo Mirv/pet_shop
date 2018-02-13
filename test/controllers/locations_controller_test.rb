@@ -42,5 +42,21 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to location_url(@location)
   end
   
-  test "only owner / admin can hide location"
+  test "only owner / admin can hide location" do
+    
+  end
+  
+  test "only owner / moderator / admin can toggle active" do
+    
+  end
+
+  test "only moderator / admin can toggle visible" do
+    
+  end
+  
+  test "only admin can see when visibile is set to false" do
+  end
+  
+  test "location is not a menu option when active is set to false" do
+  end
 end

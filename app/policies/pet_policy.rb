@@ -1,6 +1,14 @@
    class PetPolicy < ApplicationPolicy
      def update?
-       user.admin? || user.moderator? || record.try(:user) == user
+       userAdminMod?
+     end
+     
+     def show?
+       userAdminMod?
+     end
+     
+     def new?
+       @user
      end
      
      def admin?
@@ -10,4 +18,10 @@
      def moderator?
        user.moderator
      end
+     
+     private
+     
+      def userAdminMod?
+        user.admin? || user.moderator? || record.try(:user) == user
+      end
    end

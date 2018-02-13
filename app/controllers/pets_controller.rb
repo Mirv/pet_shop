@@ -12,11 +12,14 @@ class PetsController < ApplicationController
   # GET /pets/1
   # GET /pets/1.json
   def show
+    authorize @pet
   end
 
   # GET /pets/new
   def new
     @pet = Pet.new
+    authorize @pet
+
   end
 
   # GET /pets/1/edit
