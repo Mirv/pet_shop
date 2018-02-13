@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :pets
-  resources :locations
-  resources :pet_categories
+  resources :pets, except: :destroy
+  resources :locations, except: :destroy
+  resources :pet_categories, except: :destroy
   root 'pets#index'
 end
