@@ -11,6 +11,7 @@
         %th Location
         %th Published
         %th Available
+        %th Owner
         %th
         %th
   
@@ -23,9 +24,10 @@
           %td= pet.location.name
           %td= pet.published
           %td= pet.available
+          %td= pet.user_detail.name
           %td= link_to 'Show', pet
           %td= link_to 'Edit', edit_pet_path(pet)
-  
+
   %br
   
   = link_to 'New Pet', new_pet_path

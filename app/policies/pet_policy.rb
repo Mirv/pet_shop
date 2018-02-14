@@ -4,7 +4,8 @@
      end
      
      def show?
-       userAdminMod?
+      userAdminMod?
+      # @user
      end
      
      def new?

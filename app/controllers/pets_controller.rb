@@ -4,9 +4,7 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-    @available_pets = Pet.available_pets
-    @unavailable_pets = Pet.all - @available_pets
-    @pets = @available_pets
+    @pets = Pet.available_pets
   end
 
   # GET /pets/1
@@ -17,9 +15,10 @@ class PetsController < ApplicationController
 
   # GET /pets/new
   def new
-    @pet = Pet.new
-    authorize @pet
-
+    # @pet = Pet.new()
+    @user = current_user.user_detail
+    @pet = @user.pets.build
+   # authorize @pet
   end
 
   # GET /pets/1/edit
@@ -30,7 +29,7 @@ class PetsController < ApplicationController
   # POST /pets.json
   def create
     @pet = Pet.new(pet_params)
-
+    authorize @pet
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
@@ -75,6 +74,6 @@ class PetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :description, :pet_category_id, :location_id, :published, :visible, :available)
+      params.require(:pet).permit(:name, :description, :pet_category_id, :location_id, :published, :visible, :available, :user_detail_id)
     end
 end
