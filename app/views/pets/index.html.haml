@@ -26,7 +26,11 @@
           %td= pet.location.name
           %td= pet.published
           %td= pet.available
-          %td= pet.user_detail
+          - if pet.user_detail 
+            %td= pet.user_detail.name
+          - else 
+            %td= "Crap"
+          // %td= pet.user_detail.name
           // %td= pet.user_detail.first.name
           %td= link_to 'Show', pet
           %td= link_to 'Edit', edit_pet_path(pet)

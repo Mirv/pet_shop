@@ -16,11 +16,13 @@ class PetsController < ApplicationController
   # GET /pets/new
   def new
     @pet = Pet.new()
-    @user = current_user
+    @user = current_user # required for assoc relationship
+    authorize @pet
   end
 
   # GET /pets/1/edit
   def edit
+    authorize @pet
   end
 
   # POST /pets
@@ -42,7 +44,7 @@ class PetsController < ApplicationController
   # PATCH/PUT /pets/1
   # PATCH/PUT /pets/1.json
   def update
-    # authorize @pet
+    authorize @pet
     respond_to do |format|
       if @pet.update(pet_params)
         format.html { redirect_to @pet, notice: 'Pet was successfully updated.' }
