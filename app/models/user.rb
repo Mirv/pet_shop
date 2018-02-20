@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_one :user_detail
+  has_many :user_detail, inverse_of: :user
   has_many :pets, through: :user_detail
 end

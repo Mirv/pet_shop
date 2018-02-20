@@ -13,7 +13,7 @@
      end
      
      def admin?
-       user.admin
+      # user.admin
      end
      
      def moderator?
@@ -21,8 +21,12 @@
      end
      
      private
-     
+
       def userAdminMod?
-        user.admin? || user.moderator? || record.try(:user) == user
+        # user.admin? || user.moderator? || record.try(:user) == user
+        
+         record.try(:user) == user
       end
+      
+
    end

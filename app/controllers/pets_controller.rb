@@ -15,10 +15,8 @@ class PetsController < ApplicationController
 
   # GET /pets/new
   def new
-    # @pet = Pet.new()
-    @user = current_user.user_detail
-    @pet = @user.pets.build
-   # authorize @pet
+    @pet = Pet.new()
+    @user = current_user
   end
 
   # GET /pets/1/edit
