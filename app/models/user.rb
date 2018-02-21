@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_many :user_detail, inverse_of: :user
-  has_many :pets, through: :user_detail
+  has_one :user_detail, inverse_of: :user
+
+  # validates_presence_of :email
+  # validates_presence_of :encrypted_password
 end

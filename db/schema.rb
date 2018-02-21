@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214194125) do
+ActiveRecord::Schema.define(version: 20180221145222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180214194125) do
     t.integer  "user_detail_id"
     t.index ["location_id"], name: "index_pets_on_location_id", using: :btree
     t.index ["pet_category_id"], name: "index_pets_on_pet_category_id", using: :btree
+    t.index ["user_detail_id"], name: "index_pets_on_user_detail_id", using: :btree
   end
 
   create_table "user_details", force: :cascade do |t|
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 20180214194125) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "pet_id"
+    t.index ["pet_id"], name: "index_user_details_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_user_details_on_user_id", using: :btree
   end
 
@@ -77,5 +80,7 @@ ActiveRecord::Schema.define(version: 20180214194125) do
 
   add_foreign_key "pets", "locations"
   add_foreign_key "pets", "pet_categories"
+  add_foreign_key "pets", "user_details"
+  add_foreign_key "user_details", "pets"
   add_foreign_key "user_details", "users"
 end
