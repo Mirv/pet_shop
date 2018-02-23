@@ -5,7 +5,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_one :user_detail, inverse_of: :user
-
-  # validates_presence_of :email
-  # validates_presence_of :encrypted_password
 end

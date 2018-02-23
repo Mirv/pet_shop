@@ -1,12 +1,11 @@
  class PetPolicy < ApplicationPolicy
   def update?
    # user.admin? || user.moderator? || record.try(:user) == user
-
+   owner_check?
   end
   
   def owner_check?
-   record.user_detail_id == user.user_detail.first.user_id
-   # true
+   record.user_detail_id == user.user_detail.id
   end
   
   def show?
