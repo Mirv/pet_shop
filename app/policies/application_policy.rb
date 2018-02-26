@@ -3,7 +3,7 @@ class ApplicationPolicy
 
   def initialize(user, record)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    @user = user
+    @user = user.user_detail
     @record = record
   end
 
@@ -34,6 +34,24 @@ class ApplicationPolicy
   def destroy?
     false
   end
+
+  def admin?
+   user.admin
+  end
+  
+  def moderator?
+    user.moderator
+  end
+  
+  def owner_check?
+   record.user_detail_id == user.id
+  end
+  
+  def userAdminMod?
+   admin? || moderator? || owner_check?
+  end
+
+
 
   def scope
     Pundit.policy_scope!(user, record.class)
