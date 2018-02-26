@@ -15,8 +15,6 @@ class PetsController < ApplicationController
   # GET /pets/new
   def new
     @pet = Pet.new()
-    @user = current_user.user_detail # required for assoc relationship
-    # @pet = @user.pets.build
     authorize @pet
   end
 
@@ -28,7 +26,6 @@ class PetsController < ApplicationController
   # POST /pets
   # POST /pets.json
   def create
-    @pet = Pet.new(pet_params)
     @user = current_user.user_detail # required for assoc relationship
     @pet = @user.pets.build(pet_params)
     authorize @pet
@@ -78,4 +75,5 @@ class PetsController < ApplicationController
     def pet_params
       params.require(:pet).permit(:name, :description, :pet_category_id, :location_id, :published, :visible, :available, :user_detail_id)
     end
+    
 end
