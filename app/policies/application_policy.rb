@@ -35,24 +35,6 @@ class ApplicationPolicy
     false
   end
 
-  def admin?
-   user.admin
-  end
-  
-  def moderator?
-    user.moderator
-  end
-  
-  def owner_check?
-   record.user_detail_id == user.id
-  end
-  
-  def userAdminMod?
-   admin? || moderator? || owner_check?
-  end
-
-
-
   def scope
     Pundit.policy_scope!(user, record.class)
   end
@@ -61,12 +43,16 @@ class ApplicationPolicy
     attr_reader :user, :scope
 
     def initialize(user, scope)
-      @user = user
+      @user = set_user(user)
       @scope = scope
     end
 
     def resolve
       scope
+    end
+
+    def set_user(user)
+      user ? user.user_detail : user
     end
   end
 end
