@@ -5,6 +5,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   
   setup do
     @user = users(:one)
+    sign_in(@user)
     @user_details = @user.create_user_detail(name: "Adam")
     
     @location = Location.find_by(name: "MyString")
@@ -12,8 +13,6 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     
     @pet = @user_details.pets.create!(name: "Test", pet_category: @pet_category,
     location: @location, published: true, visible: true, available: true)
-    sign_in(@user)
-    
   end
 
   test "should get index" do
@@ -40,15 +39,29 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should get edit" do
-  #   get edit_pet_url(@pet)
-  #   assert_response :success
-  # end
+  test "should get edit" do
+    get edit_pet_url(@pet)
+    assert_response :success
+  end
+  
+  test "should not get edit if not owner/admin/mod" do
+    sign_out @user
+    patch pet_url(@pet), params: { pet: { description: @pet.description, 
+    location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
+    assert_redirected_to root_url, "Failed to block access to editing"
+  end
 
-  # test "should update pet" do
-  #   patch pet_url(@pet), params: { pet: { description: @pet.description, 
-  #   location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
-  #   assert_redirected_to pet_url(@pet)
-  # end
+  test "should update pet" do
+    patch pet_url(@pet), params: { pet: { description: @pet.description, 
+    location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
+    assert_redirected_to pet_url(@pet)
+  end
+  
+  test "should not update if not owner/admin/mod" do
+    sign_out @user
+    patch pet_url(@pet), params: { pet: { description: @pet.description, 
+    location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
+    assert_redirected_to root_url, "Failed to block access to updating"
+  end
 
 end
