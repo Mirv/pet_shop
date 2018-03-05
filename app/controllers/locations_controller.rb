@@ -19,6 +19,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
+    authorize @location
   end
 
   # POST /locations

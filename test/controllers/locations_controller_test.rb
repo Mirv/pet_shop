@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class LocationsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
-    @location = locations(:one)
+    @user = users(:one)
+    sign_in(@user)
+    @location = @user.user_detail.locations.create!(name: "User 1's place")
   end
 
   test "should get index" do
@@ -35,6 +38,20 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not get edit if not Owner Admin Mod" do
+    puts "--- #{@user.id} ---"
+    sign_out @user
+    @user.user_detail.locations.create!(name: "#{@user.user_detail.name}", user_detail_id: @user)
+    puts "- weird syntex #{@user.user_detail.locations.first.name}"
+    @user = users(:two)
+    puts "--- new user: #{@user.id} ---"
+    sign_in @user
+    puts "- #{@location.name} -"
+    patch location_url(@location), params: { location: {name: "someplace" }}
+    assert_redirected_to root_url, "Failed to block access to editing"
+  end
+
+
   test "should update location" do
     patch location_url(@location), params: { 
       location: { name: @location.name, xcoordinate: @location.xcoordinate, 
@@ -42,21 +59,5 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to location_url(@location)
   end
   
-  test "only owner / admin can hide location" do
-    
-  end
-  
-  test "only owner / moderator / admin can toggle active" do
-    
-  end
 
-  test "only moderator / admin can toggle visible" do
-    
-  end
-  
-  test "only admin can see when visibile is set to false" do
-  end
-  
-  test "location is not a menu option when active is set to false" do
-  end
 end

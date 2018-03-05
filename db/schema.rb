@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221175220) do
+ActiveRecord::Schema.define(version: 20180303185550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(version: 20180221175220) do
     t.string   "name"
     t.float    "xcoordinate"
     t.float    "ycoordinate"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "visible",     default: true
-    t.boolean  "active",      default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "visible",        default: true
+    t.boolean  "active",         default: true
+    t.integer  "user_detail_id"
   end
 
   create_table "pet_categories", force: :cascade do |t|

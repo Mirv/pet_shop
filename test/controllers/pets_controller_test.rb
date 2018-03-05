@@ -44,7 +44,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
-  test "should not get edit if not owner/admin/mod" do
+  test "should not get edit if not Owner Admin Mod" do
     sign_out @user
     patch pet_url(@pet), params: { pet: { description: @pet.description, 
     location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
@@ -57,11 +57,11 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to pet_url(@pet)
   end
   
-  test "should not update if not owner/admin/mod" do
+  test "should not update if not Owner Admin Mod" do
     sign_out @user
     patch pet_url(@pet), params: { pet: { description: @pet.description, 
     location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
-    assert_redirected_to root_url, "Failed to block access to updating"
+    assert_redirected_to root_url, "Failed to block access to update when not owner/admin/mod"
   end
 
 end
