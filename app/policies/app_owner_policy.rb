@@ -15,16 +15,17 @@ class AppOwnerPolicy < ApplicationPolicy
   end
   
   def userAdminMod?
-   raise Pundit::NotAuthorizedError unless owner_check? || admin? || moderator? 
+   not_authorized unless owner_check? || admin? || moderator? 
   end
   
   def not_authorized_as?(subject)
-    raise Pundit::NotAuthorizedError unless subject
+    not_authorized unless subject
   end
   
   def not_authorized
     raise Pundit::NotAuthorizedError
   end
+
   
   def not_authorized(subject = "Pundit")
     (subject + "::NotAuthorizedError").constantize
