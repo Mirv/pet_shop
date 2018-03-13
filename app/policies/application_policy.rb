@@ -24,7 +24,8 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    # false
+    raise Pundit::NotAuthorizedError, "FAILING CAPTURE ME!"
   end
 
   def edit?

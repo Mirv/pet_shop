@@ -8,6 +8,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'simple_form'
 
 # Adding security
 # Use ActiveModel has_secure_password
@@ -20,11 +21,13 @@ group :development, :test do
   gem 'byebug'
   gem 'haml'
   gem 'haml-rails'
-  gem 'simple_form'
+  
   gem 'nokogiri' # required for minitest-have_tag
   gem "minitest", "5.10.1"
   gem 'minitest-color'
   gem "administrate"
+  gem "awesome_print"
+  gem "table_print"
 end
 
 group :development do
