@@ -1,15 +1,4 @@
  class PetPolicy < AppOwnerPolicy
-  def update?
-   userAdminMod?
-  end
-
-  def show?
-   owner_check?
-  end
-  
-  def new?
-   user
-  end
 
   class Scope < Scope
    
@@ -22,5 +11,10 @@
    end
    
   end
+   def not_authorized_error(subject = "Pundit")
+    # (subject + "::NotAuthorizedError").constantize
+    Pundit::NotAuthorizedError
+
+   end
 
  end

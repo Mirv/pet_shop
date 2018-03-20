@@ -3,7 +3,6 @@ require 'test_helper'
 class LocationsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   include Pundit
-  
   setup do
     @user = User.create!(email: "atta@test.com", password: "ssssss")
     @details = @user.create_user_detail(name: "atta")
@@ -46,6 +45,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     @not_owner = User.create!(email: "blah@test.com", password: "ssssss")
     @details = @not_owner.create_user_detail!(name: "blahta")
     sign_in @not_owner
+    
     assert_raise Pundit::NotAuthorizedError do
       get edit_location_url(@location)
     end
