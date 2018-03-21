@@ -38,11 +38,11 @@ class AppOwnerPolicy < ApplicationPolicy
     end
 
     def userAdminMod?
-        if owner_check? || admin? || moderator?
-            true
-        else
-            not_authorized
-        end
+      if owner_check? || admin? || moderator?
+          true
+      else
+          not_authorized
+      end
     end
     
     def not_authorized_as?(subject)

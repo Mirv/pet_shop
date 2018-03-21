@@ -26,7 +26,6 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
         location: { name: @location.name, xcoordinate: @location.xcoordinate, 
         ycoordinate: @location.ycoordinate} }
     end
-
     assert_redirected_to location_url(Location.last)
   end
 

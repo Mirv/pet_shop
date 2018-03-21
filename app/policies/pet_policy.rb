@@ -11,10 +11,6 @@
    end
    
   end
-   def not_authorized_error(subject = "Pundit")
-    # (subject + "::NotAuthorizedError").constantize
-    Pundit::NotAuthorizedError
 
-   end
 
  end
