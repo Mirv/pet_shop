@@ -6,7 +6,9 @@
 #
 one: 
   email: a@test.com
+  encrypted_password: "ssssss"
 # column: value
 #
 two: 
   email: b@test.com
+  encrypted_password: "ssssss"
