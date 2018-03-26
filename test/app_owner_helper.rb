@@ -33,6 +33,11 @@ module AppOwnerHelper
       @user.create_user_detail!(name: @target_name)
     end
     
+    def update_user_detail(attributes)
+      user.user_detail.update(attributes)
+      set_user_detail
+    end
+    
     def set_location
       @location ||= @location = Location.find_or_create_by!(name: "Al-passo") do 
         |loc| loc.user_detail_id = @user.user_detail.id end
