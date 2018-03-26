@@ -22,3 +22,5 @@
 /db/migrate/*
 
 /config/secrets.yml
+
+/public/assets
