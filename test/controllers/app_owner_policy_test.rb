@@ -26,8 +26,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
 
   test "mod can edit other owners reocrds" do
     user = @policy_dummy.make_user
-    user.user_detail.update(moderator: true)
-    @policy_dummy.set_user_detail
+    @policy_dummy.update_user_detail(moderator => "true")
     policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
     assert_equal true, policy.moderator?
   end
