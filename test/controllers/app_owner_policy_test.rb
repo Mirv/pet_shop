@@ -4,8 +4,7 @@ require 'app_owner_helper' # located in app/policy
 # class LocationsControllerTest < ActionDispatch::IntegrationTest
 # class AppOwnerPolicyTest  # < ActionDispatch::IntegrationTest
 class AppOwnerPolicyTest < ActiveSupport::TestCase
-  # include Devise::Test::IntegrationHelpers
-  # include MiniTest::Assertions
+
   include AppOwnerHelper
   include Pundit
   
@@ -18,23 +17,19 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   
   def setup
     @policy_dummy = AppOwnerHelper::PolicyDummy.new
-    @user = @policy_dummy.set_user
-    @policy_dummy.set_location
-    # @user_details = AppOwnerHelper::PolicyDummy.set_user_detail
   end
   
   test "owner can edit" do
-    @pet = @policy_dummy.set_pet
-    @policy = AppOwnerPolicy.new(@user, @pet)
+    @policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
     assert_equal true, @policy.owner_check?
   end
 
   test "mod can edit other owners reocrds" do
-    @pet = @policy_dummy.set_pet
-    @user = @policy_dummy.make_user
-    @policy = AppOwnerPolicy.new(@user, @pet)
-    byebug
-    assert_equal true, @policy.owner_check?
+    user = @policy_dummy.make_user
+    user.user_detail.update(moderator: true)
+    @policy_dummy.set_user_detail
+    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
+    assert_equal true, policy.moderator?
   end
 
   # test "only owner, admin can hide location" do

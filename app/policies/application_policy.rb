@@ -15,26 +15,43 @@ class ApplicationPolicy
     scope.where(:id => record.id).exists?
   end
 
-  def create?
-    user
-  end
-
   def new?
     create?
   end
 
-  def update?
-    # false
-    raise Pundit::NotAuthorizedError, "FAILING CAPTURE ME!"
+  def create?
+    user
   end
 
   def edit?
     update?
   end
+  
+  def update?
+    false
+  end
 
   def destroy?
     false
   end
+
+  # def admin?
+  # user.admin
+  # end
+  
+  # def moderator?
+  #   user.moderator
+  # end
+  
+  # def owner_check?
+  # record.user_detail_id == user.id
+  # end
+  
+  # def userAdminMod?
+  # admin? || moderator? || owner_check?
+  # end
+
+
 
   def scope
     Pundit.policy_scope!(user, record.class)
@@ -44,16 +61,12 @@ class ApplicationPolicy
     attr_reader :user, :scope
 
     def initialize(user, scope)
-      @user = set_user(user)
+      @user = user
       @scope = scope
     end
 
     def resolve
       scope
-    end
-
-    def set_user(user)
-      user ? user.user_detail : user
     end
   end
 end
