@@ -13,7 +13,7 @@ default: &default
 
 development:
   <<: *default
-  database: petterdb
+  database: <% ENV['pet_storedb'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,6 +24,6 @@ test:
   username: <% ENV['db_user'] %>
   password: <% ENV['db_pass'] %>
 
-production:
-  <<: *default
-  database: petterdb
+#production:
+#  <<: *default
+#  database: petterdb
