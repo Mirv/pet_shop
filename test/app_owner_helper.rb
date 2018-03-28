@@ -19,18 +19,20 @@ module AppOwnerHelper
     end
     
     def set_user
-      @user ||= make_user
-      # make_user
+      @user ||= @user = make_user
     end
     
     def make_user
-      @user = User.find_or_create_by(email: "#{@target_name}@test.com") { 
+      User.find_or_create_by(email: "#{@target_name}@test.com") { 
         |user| user.password = 'ssssss' }
     end
   
     def set_user_detail
-      @user_details ||= UserDetail.find_by(user_id: @user) || 
-      @user.create_user_detail!(name: @target_name)
+      @user_details ||= @user_details = make_user_detail
+    end
+    
+    def make_user_detail
+      UserDetail.find_by(user_id: @user) || @user.create_user_detail!(name: @target_name)
     end
     
     def set_location

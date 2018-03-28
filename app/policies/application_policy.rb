@@ -35,14 +35,10 @@ class ApplicationPolicy
     false
   end
 
-  # def admin?
-  # user.admin
-  # end
-  
-  # def moderator?
-  #   user.moderator
-  # end
-  
+  def admin?
+    user.admin
+  end
+
   # def owner_check?
   # record.user_detail_id == user.id
   # end
@@ -50,8 +46,6 @@ class ApplicationPolicy
   # def userAdminMod?
   # admin? || moderator? || owner_check?
   # end
-
-
 
   def scope
     Pundit.policy_scope!(user, record.class)

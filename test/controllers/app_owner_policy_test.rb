@@ -1,46 +1,46 @@
 require 'test_helper'
 require 'app_owner_helper' # located in app/policy
 
-# class LocationsControllerTest < ActionDispatch::IntegrationTest
-# class AppOwnerPolicyTest  # < ActionDispatch::IntegrationTest
 class AppOwnerPolicyTest < ActiveSupport::TestCase
 
   include AppOwnerHelper
   include Pundit
-  
 
   # # no sign_in/out necessary
-  # def setup
-  #   @current_user = @set_user
-  #   @user_details = @user_detail
-  # end
-  
+  # # List of tests, 
+  # => affirm owner, admin can both edit, hide, deactivate
+  # => affirm admin can delete
+  # => affirm links dont show when not permitted
+
   def setup
     @policy_dummy = AppOwnerHelper::PolicyDummy.new
   end
   
   test "owner can edit" do
-    @policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
-    assert_equal true, @policy.owner_check?
-  end
-
-  test "mod can edit other owners reocrds" do
-    user = @policy_dummy.make_user
-    user.user_detail.update(moderator: true)
-    @policy_dummy.set_user_detail
     policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
-    assert_equal true, policy.moderator?
+    assert_equal true, policy.owner_check?
+    assert_equal true, policy.userAdmin?
   end
 
-  # test "only owner, admin can hide location" do
-    
-  # end
+  test "admin can edit other owners records" do
+    user = @policy_dummy.make_user
+    @policy_dummy.user_details.update(admin: true)
+    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
+    assert_equal true, policy.admin?
+  end
+
+  test "only owner, admin can hide location" do
+    user = @policy_dummy.make_user
+    @policy_dummy.user_details.update(admin: true)
+    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
+    assert_equal true, policy.admin?
+  end
   
-  # test "only owner, moderator, admin can toggle active" do
+  # test "only owner, admin can toggle active" do
     
   # end
 
-  # test "only moderator, admin can toggle visible" do
+  # test "only admin can toggle visible" do
     
   # end
   

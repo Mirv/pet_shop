@@ -3,7 +3,7 @@
   class Scope < Scope
    
    def resolve
-    if user&.admin?
+    if user&.user_detail&.admin
      scope.all
     else
      scope.where(published: true)

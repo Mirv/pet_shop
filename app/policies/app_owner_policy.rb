@@ -17,44 +17,49 @@ class AppOwnerPolicy < ApplicationPolicy
   end
   
   def update?
-   userAdminMod?
+   userAdmin?
   end
   
   # def create?
   # end
+  class Scope < Scope
+   
+   def resolve
+    if user&.user_detail&.admin
+     scope.all
+    else
+     scope.where(published: true)
+    end
+   end
+   
+  end
+
+  def owner_check?
+   record.user_detail_id == user.id
+  end
+
+  def admin?
+    user.admin
+  end
+
+  def userAdmin?
+    if owner_check? || admin? 
+        true
+    else
+        not_authorized
+    end
+  end
   
-
-  # private
-    def owner_check?
-     record.user_detail_id == user.id
-    end
-
-    def moderator?
-     user.moderator
-    end
-
-    def admin?
-      user.admin
-    end
-
-    def userAdminMod?
-      if owner_check? || admin? || moderator?
-          true
-      else
-          not_authorized
-      end
-    end
-    
-    def not_authorized_as?(subject)
-      not_authorized unless subject
-    end
-    
-    def not_authorized
-      raise not_authorized_error
-    end
-
-    def not_authorized_error(subject = "Pundit")
-        (subject + "::NotAuthorizedError").constantize
-    end
+  def not_authorized_as?(subject)
+    not_authorized unless subject
+  end
   
+  def not_authorized
+    raise not_authorized_error
+  end
+
+  def not_authorized_error(subject = "Pundit")
+      (subject + "::NotAuthorizedError").constantize
+  end
+
 end
