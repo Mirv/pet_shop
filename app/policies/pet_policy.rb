@@ -1,16 +1,27 @@
  class PetPolicy < AppOwnerPolicy
-
-  class Scope < Scope
-   
-   def resolve
-    if user&.user_detail&.admin
-     scope.all
-    else
-     scope.where(published: true)
-    end
-   end
-   
+  
+  def index?
+    true
   end
 
-
+  def show?
+   scope.where(:id => record.id).exists?
+  end
+  
+  def new?
+   create?
+  end
+  
+  def create?
+   user
+  end
+  
+  def edit?
+   update?
+  end
+  
+  def update?
+   userAdmin?
+  end
+  
  end

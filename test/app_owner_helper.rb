@@ -50,6 +50,19 @@ module AppOwnerHelper
         location_id: @location.id, 
         pet_category_id: @pet_category.id)
     end
+    
+      
+  def not_authorized_as?(subject)
+    not_authorized unless subject
+  end
+  
+  def not_authorized
+    raise not_authorized_error
+  end
+
+  def not_authorized_error(subject = "Pundit")
+      (subject + "::NotAuthorizedError").constantize
+  end
 
   end
 end
