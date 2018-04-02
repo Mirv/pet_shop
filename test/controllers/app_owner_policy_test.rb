@@ -13,7 +13,15 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   # => affirm links dont show when not permitted
 
   def setup
-    @policy_dummy = AppOwnerHelper::PolicyDummy.new
+    @policy_dummy = AppOwnerHelper::PolicyDummy.new("A user")
+  end
+
+  test "admin can edit other owners records" do
+    policy_admin = AppOwnerHelper::PolicyDummy.new("Admin")
+    policy_admin.user_details.update(admin: true)
+    policy = AppOwnerPolicy.new(policy_admin.user, @policy_dummy.pet)
+    assert_equal true, policy.admin?
+    assert_equal true, policy.userAdmin?
   end
   
   test "owner can edit" do
@@ -21,14 +29,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     assert_equal true, policy.owner_check?
     assert_equal true, policy.userAdmin?
   end
-
-  test "admin can edit other owners records" do
-    user = @policy_dummy.make_user
-    @policy_dummy.user_details.update(admin: true)
-    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
-    assert_equal true, policy.admin?
-  end
-
+  
   test "only owner, admin can hide location" do
     user = @policy_dummy.make_user
     @policy_dummy.user_details.update(admin: true)

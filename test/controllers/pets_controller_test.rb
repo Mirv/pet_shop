@@ -7,14 +7,8 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   include AppOwnerHelper
 
   setup do
-    @user = set_user
-    @user_details = set_user_detail
-    @pet_category = set_pet_category
-    @location = set_location
-    sign_in(@user)
-
-    @pet = @user_details.pets.build(name: "Test", pet_category: @pet_category,
-    location: @location, published: true, visible: true, available: true)
+    @policy_dummy = AppOwnerHelper::PolicyDummy.new("PrimaryUser")
+    sign_in @policy_dummy.user
   end
 
   test "should get index" do
@@ -23,8 +17,8 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show pet" do
-    @pet.save!
-    get pet_url(@pet)
+    pet = @policy_dummy.pet
+    get pet_url(pet)
     assert_response :success
   end
 
@@ -34,6 +28,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create pet" do
+    @pet = @policy_dummy.pet
     assert_difference('Pet.count') do
       post pets_url, params: { pet: { description: @pet.description, 
       location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
@@ -43,18 +38,17 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should get edit" do
-    @pet.save!
-    get edit_pet_url(@pet)
+    pet = @policy_dummy.pet
+    get edit_pet_url(pet)
     assert_response :success
   end
 
   test "should not get edit if not Owner Admin Mod" do
-    @pet.save!
-    sign_out(@user)
-    @not_owner = User.create!(email: "blah@test.com", password: "ssssss")
-    @details = @not_owner.create_user_detail!(name: "blahta")
-    sign_in @not_owner
-    
+    @pet = @policy_dummy.pet
+    @admin_dummy = AppOwnerHelper::PolicyDummy.new("Second User")
+    sign_in @admin_dummy.user
+    puts "Admin:  #{@admin_dummy.user}, #{@admin_dummy.user.user_detail.name}"
+
     assert_raise Pundit::NotAuthorizedError do
       patch pet_url(@pet), params: { pet: { description: @pet.description, 
       location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
@@ -63,19 +57,18 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pet" do
-    @pet.save!
+    @pet = @policy_dummy.pet
     patch pet_url(@pet), params: { pet: { description: @pet.description, 
     location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
     assert_redirected_to pet_url(@pet)
   end
 
   test "should not update if not Owner Admin Mod" do
-    @pet.save!
-    sign_out @user
-    @another_user = User.create!(email: "aaa@test.com", password: "ssssss")
-    sign_in(@another_user)
-    @user_details = @another_user.create_user_detail(name: "aaa")
-    
+    @pet = @policy_dummy.pet
+    sign_out @policy_dummy.user
+    @admin_dummy = AppOwnerHelper::PolicyDummy.new("SecondUser")
+    sign_in @admin_dummy.user
+
     assert_raise Pundit::NotAuthorizedError do
       patch pet_url(@pet), params: { pet: { description: @pet.description, 
       location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
