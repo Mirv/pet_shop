@@ -39,6 +39,27 @@ class ApplicationPolicy
     user.admin
   end
 
+  def userAdmin?
+    if owner_check? || admin? 
+      true
+    else
+      not_authorized
+    end
+  end
+
+  def not_authorized_as?(subject)
+    not_authorized unless subject
+  end
+
+  def not_authorized
+    raise not_authorized_error
+  end
+
+  def not_authorized_error(subject = "Pundit")
+    (subject + "::NotAuthorizedError").constantize
+  end
+
+
   # def owner_check?
   # record.user_detail_id == user.id
   # end

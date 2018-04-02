@@ -10,7 +10,7 @@ module AppOwnerHelper
       :target_name, :pet_category, :pet
 
     def initialize(target_name = nil)
-      @target_name = target_name.tr("\n\t", '_').tr(' ','') || "A_user"
+      @target_name = sanitize_name(target_name) || "A_user"
       set_user
       set_user_detail
       set_location
@@ -18,12 +18,16 @@ module AppOwnerHelper
       set_pet
     end
     
+    def sanitize_name(target_name)
+      target_name.tr("\n\t", '_').tr(' ','').downcase
+    end
+    
     def set_user
       @user ||= @user = make_user
     end
     
     def make_user
-      User.first_or_create!(email: "#{@target_name}@test.com") do  
+      User.find_or_create_by!(email: "#{sanitize_name(@target_name)}@test.com") do  
         |user| user.password = 'ssssss' 
       end
     end
