@@ -33,7 +33,6 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
       post pets_url, params: { pet: { description: @pet.description, 
       location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
     end
-
     assert_redirected_to pet_url(Pet.last)
   end
   
@@ -43,26 +42,24 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should not get edit if not Owner Admin Mod" do
-    @pet = @policy_dummy.pet
-    @admin_dummy = AppOwnerHelper::PolicyDummy.new("Second User")
-    sign_in @admin_dummy.user
-    puts "Admin:  #{@admin_dummy.user}, #{@admin_dummy.user.user_detail.name}"
-
-    assert_raise Pundit::NotAuthorizedError do
-      patch pet_url(@pet), params: { pet: { description: @pet.description, 
-      location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
-    end
-    # assert_redirected_to root_url, "Failed to block access to editing"
-  end
-
   test "should update pet" do
     @pet = @policy_dummy.pet
     patch pet_url(@pet), params: { pet: { description: @pet.description, 
     location_id: @pet.location_id, name: @pet.name, pet_category_id: @pet.pet_category_id } }
     assert_redirected_to pet_url(@pet)
   end
-
+  
+  test "should not get edit if not Owner Admin" do
+    pet = @policy_dummy.pet
+    sign_out @policy_dummy.user
+    @admin_dummy = AppOwnerHelper::PolicyDummy.new("Second User")
+    sign_in @admin_dummy.user
+  
+    assert_raise Pundit::NotAuthorizedError do
+      get edit_pet_url(pet)
+    end
+  end
+  
   test "should not update if not Owner Admin Mod" do
     @pet = @policy_dummy.pet
     sign_out @policy_dummy.user

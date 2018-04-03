@@ -59,15 +59,6 @@ class ApplicationPolicy
     (subject + "::NotAuthorizedError").constantize
   end
 
-
-  # def owner_check?
-  # record.user_detail_id == user.id
-  # end
-  
-  # def userAdminMod?
-  # admin? || moderator? || owner_check?
-  # end
-
   def scope
     Pundit.policy_scope!(user, record.class)
   end

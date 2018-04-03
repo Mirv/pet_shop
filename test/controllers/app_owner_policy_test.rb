@@ -17,8 +17,8 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   end
 
   test "admin can edit other owners records" do
-    policy_admin = AppOwnerHelper::PolicyDummy.new("Admin")
-    policy_admin.user_details.update(admin: true)
+    policy_admin = AppOwnerHelper::PolicyDummy.new("Admin") # 2nd non-owner to test against
+    policy_admin.user_details.update(admin: true)  # set as admin
     policy = AppOwnerPolicy.new(policy_admin.user, @policy_dummy.pet)
     assert_equal true, policy.admin?
     assert_equal true, policy.userAdmin?
@@ -34,7 +34,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     user = @policy_dummy.make_user
     @policy_dummy.user_details.update(admin: true)
     policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
-    assert_equal true, policy.admin?
+    assert policy.admin?
   end
   
   # test "only owner, admin can toggle active" do

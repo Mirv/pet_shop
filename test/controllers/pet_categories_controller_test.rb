@@ -36,7 +36,8 @@ class PetCategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update pet_category" do
     patch pet_category_url(@pet_category), params: { 
-      pet_category: { description: @pet_category.description, name: @pet_category.name } }
+      pet_category: { description: @pet_category.description, 
+        name: @pet_category.name } }
     assert_redirected_to pet_category_url(@pet_category)
   end
 end
