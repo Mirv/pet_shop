@@ -3,15 +3,37 @@ class AppOwnerPolicy < ApplicationPolicy
   # def create?
   # end
   class Scope < Scope
-   
-   def resolve
-    if user&.user_detail&.admin
-     scope.all
-    else
-     scope.where(published: true, visible: true)
+    def resolve
+      if user&.user_detail&.admin
+       scope.all
+      else
+       scope.where(published: true, visible: true)
+      end
     end
-   end
-   
+  end
+  
+  def index?
+    true
+  end
+  
+  def show?
+    scope.where(:id => record.id).exists?
+  end
+  
+  def new?
+    create?
+  end
+  
+  def create?
+    user
+  end
+  
+  def edit?
+    update?
+  end
+  
+  def update?
+    userAdmin?
   end
 
   def owner_check?
@@ -23,12 +45,12 @@ class AppOwnerPolicy < ApplicationPolicy
   end
 
   def userAdmin?
+    #  puts "UserAdmin?"
     if owner_check? || admin? 
-        true
+      true
     else
-        not_authorized
+      not_authorized
     end
   end
-
 
 end

@@ -18,16 +18,24 @@ module AppOwnerHelper
       set_pet
     end
     
+    def provision_admin
+      @target_name = "admin"
+      @user = make_user
+      @user_details = make_user_detail
+      @user_details.update(admin: true)
+    end
+    
     def sanitize_name(target_name)
       target_name.tr("\n\t", '_').tr(' ','').downcase
     end
     
     def set_user
-      @user ||= @user = make_user
+      @user ||=  make_user
     end
     
     def make_user
-      User.find_or_create_by!(email: "#{sanitize_name(@target_name)}@test.com") do  
+      email = "#{sanitize_name(@target_name)}@test.com"
+      User.find_or_create_by!(email: email) do  
         |user| user.password = 'ssssss' 
       end
     end

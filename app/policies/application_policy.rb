@@ -35,18 +35,6 @@ class ApplicationPolicy
     false
   end
 
-  def admin?
-    user.admin
-  end
-
-  def userAdmin?
-    if owner_check? || admin? 
-      true
-    else
-      not_authorized
-    end
-  end
-
   def not_authorized_as?(subject)
     not_authorized unless subject
   end
