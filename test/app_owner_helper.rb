@@ -19,21 +19,19 @@ module AppOwnerHelper
     end
     
     # Can only provision one user with defaultname
-    def provision_user(name = "A new user")
-      puts "provision name: #{name}"
+    def provision_user(name = default_user_name)
       @target_name = name
       @user = make_user
       @user_details = make_user_detail
     end
     
     # -- TODO -- shouldn't be admin'ing stuff for giggles
-    def provision_admin(name = "A new admin")
+    def provision_admin(name = default_admin_name)
       provision_user(name)
       @user_details.update(admin: true)
     end
     
     def sanitize_name
-      # puts "Caller:  #{caller[0]}"
       if @target_name
         @target_name = @target_name.tr("\n\t\s", '_').downcase
       else
@@ -61,7 +59,6 @@ module AppOwnerHelper
     def make_user
       increment_name
       sanitize_name
-      puts @target_name
       email = "#{@target_name}@test.com"
       User.create!(email: email) do  
         |user| user.password = 'ssssss' 

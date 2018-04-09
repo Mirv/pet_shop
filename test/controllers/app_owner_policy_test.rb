@@ -32,14 +32,19 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   end
 
   test "only owner admin can hide location" do
-    @policy_dummy.provision_admin
+    @policy_dummy.provision_admin("Cheeser Admin Soup")
     policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
     assert_equal true, policy.admin?, "Admin, not owner failed."
     assert_equal true, policy.edit?
   end
 
   test "normal user fails edit" do
+    @policy_dummy.provision_user
+    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
     
+    assert_raise Pundit::NotAuthorizedError do
+      policy.edit?
+    end
   end
   
   # test "only admin can see when visibile is set to false" do
