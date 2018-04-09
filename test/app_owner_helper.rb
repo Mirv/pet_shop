@@ -10,7 +10,7 @@ module AppOwnerHelper
       :target_name, :pet_category, :pet
 
     def initialize(target_name = nil)
-      @target_name = sanitize_name(target_name) || "A_user"
+      sanitize_name 
       set_user
       set_user_detail
       set_location
@@ -18,20 +18,40 @@ module AppOwnerHelper
       set_pet
     end
     
-    # Can only provision one user
+    # Can only provision one user with defaultname
     def provision_user(name = "A new user")
+      puts "provision name: #{name}"
       @target_name = name
       @user = make_user
       @user_details = make_user_detail
     end
     
+    # -- TODO -- shouldn't be admin'ing stuff for giggles
     def provision_admin(name = "A new admin")
-      provision_user
+      provision_user(name)
       @user_details.update(admin: true)
     end
     
-    def sanitize_name(target_name)
-      target_name.tr("\n\t", '_').tr(' ','').downcase
+    def sanitize_name
+      # puts "Caller:  #{caller[0]}"
+      if @target_name
+        @target_name = @target_name.tr("\n\t\s", '_').downcase
+      else
+        @target_name = default_user_name
+      end
+      
+    end
+    
+    def default_user_name
+      "A_User"
+    end
+    
+    def default_admin_name
+      "An_Admin"
+    end
+    
+    def increment_name
+      @target_name = "#{@target_name}#{User.count}"
     end
     
     def set_user
@@ -39,8 +59,11 @@ module AppOwnerHelper
     end
     
     def make_user
-      email = "#{sanitize_name(@target_name)}@test.com"
-      User.find_or_create_by!(email: email) do  
+      increment_name
+      sanitize_name
+      puts @target_name
+      email = "#{@target_name}@test.com"
+      User.create!(email: email) do  
         |user| user.password = 'ssssss' 
       end
     end
