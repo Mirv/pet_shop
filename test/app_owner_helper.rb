@@ -18,10 +18,15 @@ module AppOwnerHelper
       set_pet
     end
     
-    def provision_admin
-      @target_name = "admin"
+    # Can only provision one user
+    def provision_user(name = "A new user")
+      @target_name = name
       @user = make_user
       @user_details = make_user_detail
+    end
+    
+    def provision_admin(name = "A new admin")
+      provision_user
       @user_details.update(admin: true)
     end
     
@@ -49,14 +54,14 @@ module AppOwnerHelper
     end
     
     def set_location
-      @location ||= @location = Location.find_or_create_by!(
-        name: "#{@target_name}'s Al-passo") do 
-          |loc| loc.user_detail_id = @user.user_detail #.id 
+      a_name = "#{@target_name}'s Al-passo"
+      @location ||= Location.find_or_create_by!(name: a_name ) do 
+          |loc| loc.user_detail_id = @user.user_detail.id 
         end
     end
     
     def set_pet_category
-      @pet_category = PetCategory.find_or_create_by!(name: "Animal")
+      @pet_category ||= PetCategory.find_or_create_by!(name: "Animal")
     end 
     
     def set_pet

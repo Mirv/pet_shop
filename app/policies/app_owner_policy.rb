@@ -1,7 +1,5 @@
 class AppOwnerPolicy < ApplicationPolicy 
 
-  # def create?
-  # end
   class Scope < Scope
     def resolve
       if user&.user_detail&.admin
