@@ -48,10 +48,11 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   # Load List of ... whatever
   # check none have visible: true
   test "only admin can see when published is set to false" do
-    categories = policy_scope(Pet)
-    @policy_dummy.user.update(published: false)
-    invisible = @policy_dummy.user
-    refute_includes categories, categories.includes?(invisible)
+    categories = PolicyDummy::Scope.new(@policy_dummy.user, Pet)
+    # categories = policy_scope(Pet)
+    @policy_dummy.pet.update(published: false)
+    invisible = @policy_dummy.pet
+    refute_includes categories.scope, invisible
   end
   
   test "location is not a menu option when active is set to false" do

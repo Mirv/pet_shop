@@ -1,41 +1,20 @@
 module AppOwnerHelper
   class NameIsNil < StandardError ; end
+  class NameIsBlank < StandardError ; end
 
   class NameLogic
-    def initialize(target_name, isAdmin)
-      # raise NameIsNil unless target_name.present?
+    attr_reader :target_name
+
+    def initialize(target_name)
+      raise NameIsBlank if target_name.blank?
       @target_name = target_name
-      @isAdmin = isAdmin
-      assign_name
-    end
-    
-    
-    
-    def assign_name
-      clean_nil_blank
       sanitize_name
+      increment_name
+      return @target_name
     end
 
     def sanitize_name
       @target_name = @target_name.tr("\n\t\s", '_').downcase
-    end
-    
-    def clean_nil_blank
-      if @target_name.blank?
-        replace_name
-      end
-    end
-    
-    def replace_name
-      @target_name = @isAdmin ? default_admin_name : default_user_name
-    end
-    
-    def default_user_name
-      "A_User"
-    end
-    
-    def default_admin_name
-      "An_Admin"
     end
     
     def increment_name
@@ -54,6 +33,7 @@ module AppOwnerHelper
       :target_name, :pet_category, :pet
 
     def initialize(target_name = nil)
+      @target_name = target_name
       set_user
       set_user_detail
       set_location
@@ -66,6 +46,26 @@ module AppOwnerHelper
       @user = make_user
       @user_details = make_user_detail
     end
+
+# ======= TODO - next refactor target    
+    def clean_nil_blank
+      if @target_name.blank?
+        replace_name
+      end
+    end
+
+    def replace_name
+      @target_name = @isAdmin ? default_admin_name : default_user_name
+    end
+    
+    def default_user_name
+      "A_User"
+    end
+    
+    def default_admin_name
+      "An_Admin"
+    end
+# =======
     
     # -- TODO -- shouldn't be admin'ing stuff for giggles
     def provision_admin(name = default_admin_name)
@@ -78,8 +78,8 @@ module AppOwnerHelper
     end
     
     def make_user
-      increment_name
-      sanitize_name
+      @name_obj = AppOwnerHelper::NameLogic.new(@target_name)
+      @target_name = @name_obj.target_name
       email = "#{@target_name}@test.com"
       User.create!(email: email) do  
         |user| user.password = 'ssssss' 
@@ -105,9 +105,9 @@ module AppOwnerHelper
       @pet_category ||= PetCategory.find_or_create_by!(name: "Animal")
     end 
     
-    def set_pet
+    def set_pet(pet_name = 'test')
      @pet ||= @user_details.pets.create!(
-        name: "test", 
+        name: pet_name, 
         location_id: @location.id, 
         pet_category_id: @pet_category.id)
     end
