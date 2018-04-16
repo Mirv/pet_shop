@@ -35,7 +35,7 @@ class AppOwnerPolicy < ApplicationPolicy
   end
 
   def owner_check?
-   record.user_detail_id == user.id
+    record.user_detail_id == user.id
   end
 
   def admin?
@@ -43,7 +43,6 @@ class AppOwnerPolicy < ApplicationPolicy
   end
 
   def userAdmin?
-    #  puts "UserAdmin?"
     if owner_check? || admin? 
       true
     else

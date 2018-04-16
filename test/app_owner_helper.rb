@@ -1,43 +1,33 @@
 module AppOwnerHelper
-  
-  class PolicyDummy < AppOwnerPolicy
-  #  Dummy usage instruction  
-  # all the `set_` method only call to `make_` method if not set already
-  #  No need to sign in user - as controller class calls authorize to 
-  #  ...punidt already
+  class NameIsNil < StandardError ; end
 
-    attr_accessor :user, :user_details, :location, 
-      :target_name, :pet_category, :pet
+  class NameLogic
+    def initialize(target_name, isAdmin)
+      # raise NameIsNil unless target_name.present?
+      @target_name = target_name
+      @isAdmin = isAdmin
+      assign_name
+    end
+    
+    
+    
+    def assign_name
+      clean_nil_blank
+      sanitize_name
+    end
 
-    def initialize(target_name = nil)
-      sanitize_name 
-      set_user
-      set_user_detail
-      set_location
-      set_pet_category
-      set_pet
-    end
-    
-    # Can only provision one user with defaultname
-    def provision_user(name = default_user_name)
-      @target_name = name
-      @user = make_user
-      @user_details = make_user_detail
-    end
-    
-    # -- TODO -- shouldn't be admin'ing stuff for giggles
-    def provision_admin(name = default_admin_name)
-      provision_user(name)
-      @user_details.update(admin: true)
-    end
-    
     def sanitize_name
-      if @target_name
-        @target_name = @target_name.tr("\n\t\s", '_').downcase
-      else
-        @target_name = default_user_name
+      @target_name = @target_name.tr("\n\t\s", '_').downcase
+    end
+    
+    def clean_nil_blank
+      if @target_name.blank?
+        replace_name
       end
-      
+    end
+    
+    def replace_name
+      @target_name = @isAdmin ? default_admin_name : default_user_name
     end
     
     def default_user_name
@@ -51,7 +41,38 @@ module AppOwnerHelper
     def increment_name
       @target_name = "#{@target_name}#{User.count}"
     end
+  end
+  
+  
+  class PolicyDummy < AppOwnerPolicy
+  #  Dummy usage instruction  
+  # all the `set_` method only call to `make_` method if not set already
+  #  No need to sign in user - as controller class calls authorize to 
+  #  ...punidt already
+
+    attr_accessor :user, :user_details, :location, 
+      :target_name, :pet_category, :pet
+
+    def initialize(target_name = nil)
+      set_user
+      set_user_detail
+      set_location
+      set_pet_category
+      set_pet
+    end
     
+    def provision_user(name = default_user_name)
+      @target_name = name
+      @user = make_user
+      @user_details = make_user_detail
+    end
+    
+    # -- TODO -- shouldn't be admin'ing stuff for giggles
+    def provision_admin(name = default_admin_name)
+      provision_user(name)
+      @user_details.update(admin: true)
+    end
+
     def set_user
       @user ||=  make_user
     end
