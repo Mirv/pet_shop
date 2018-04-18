@@ -15,19 +15,19 @@ gem 'simple_form'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise', '~> 4.2.0'
 gem 'pundit'
+gem "administrate"
+gem 'nokogiri' # required for minitest-have_tag
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'haml'
   gem 'haml-rails'
-  
-  gem 'nokogiri' # required for minitest-have_tag
   gem "minitest", "5.10.1"
   gem 'minitest-color'
-  gem "administrate"
   gem "awesome_print"
   gem "table_print"
+  gem 'guard' # NOTE: this is necessary in newer versions
+  gem 'guard-minitest'
 end
 
 group :development do
@@ -36,8 +36,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   # gem 'spring'
 end
-
-# my additions
 
 group :production do
   gem 'pg', '0.18.4'

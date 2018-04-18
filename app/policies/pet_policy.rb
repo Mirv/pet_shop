@@ -24,6 +24,14 @@
    userAdmin?
   end
   
-  
+  class Scope < Scope
+    
+    
+  end
   
  end
+ 
+ 
+ 
+ 
+ #testssssssssssssssssssssssssss
