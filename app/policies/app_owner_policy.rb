@@ -5,7 +5,9 @@ class AppOwnerPolicy < ApplicationPolicy
       if user&.user_detail&.admin
        scope.all
       else
-       scope.where(published: true, visible: true)
+       scope.where(visible: true)
+              # scope.where(published: true, visible: true)
+
       end
     end
   end

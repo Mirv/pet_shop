@@ -55,7 +55,8 @@ class ApplicationPolicy
     attr_reader :user, :scope
 
     def initialize(user, scope)
-      @user = user.user_detail
+      # @user = user.user_detail
+      @user = user
       @scope = scope
     end
 
