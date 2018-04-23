@@ -44,38 +44,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
       policy.edit?
     end
   end
-  
-  # set pet to unpublished
-  # save unpublished pet for use
-  # load a test user not owner/admin
-  # call scope for latest user (nonOwnerAdmin)
-  # assert pet isn't in scope
-  #
-  #
-  # test "only ownerAdmin can see when published is set to false" do
-  #   @policy_dummy.pet.update(published: false)
-  #   invisible = @policy_dummy.pet
-  #   @policy_dummy.provision_user
-  #   pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet) #.scope #.all
-  #   # byebug
-  #   # categories = policy_scope(Pet)
-  #   # pets= policy_scope(@policy_dummy.user,Pet)
-    
-  #   # byebug
-  #   # categories = categories.scope
-  #   refute pets.scope.include?(invisible)
-  #   byebug
-  # end
-  
-  # Best so far - but .all might be mucking with results to grab entire table
-  # test "only ownerAdmin can see when published is set to false" do
-  #   @policy_dummy.pet.update(published: false)
-  #   invisible = @policy_dummy.pet
-  #   @policy_dummy.provision_user
-  #   pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).scope.all
-  #   refute pets.include?(invisible)
-  # end
-  
+ 
   test "only ownerAdmin can see when published is set to false" do
     @policy_dummy.pet.update(published: false)
     invisible = @policy_dummy.pet
