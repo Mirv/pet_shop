@@ -105,8 +105,12 @@ module AppOwnerHelper
       @pet_category ||= PetCategory.find_or_create_by!(name: "Animal")
     end 
     
-    def set_pet(pet_name = 'test')
-     @pet ||= @user_details.pets.create!(
+    def set_pet(pet_name = 'test pet')
+     @pet ||= make_pet
+    end
+    
+    def make_pet(pet_name = 'test pet')
+      @user_details.pets.create!(
         name: pet_name, 
         location_id: @location.id, 
         pet_category_id: @pet_category.id)
