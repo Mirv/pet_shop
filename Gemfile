@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0'
+gem 'rails'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -13,9 +13,9 @@ gem 'simple_form'
 # Adding security
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'devise', '~> 4.2.0'
+gem 'devise'
 gem 'pundit'
-gem "administrate"
+# gem "administrate"
 gem 'nokogiri' # required for minitest-have_tag
 
 group :development, :test do
