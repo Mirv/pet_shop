@@ -13,22 +13,24 @@ module AppOwnerHelper
       return @target_name
     end
 
+    # TODO B - Rails must have a santizer ... parametize for slugs or emailize
     def sanitize_name
       @target_name = @target_name.tr("\n\t\s", '_').downcase
     end
+    # Finish B
     
     def increment_name
       @target_name = "#{@target_name}#{User.count}"
     end
   end
   
-  
-  class PolicyDummy < AppOwnerPolicy
   #  Dummy usage instruction  
   # all the `set_` method only call to `make_` method if not set already
   #  No need to sign in user - as controller class calls authorize to 
   #  ...punidt already
-
+  #
+  #
+  class PolicyDummy < AppOwnerPolicy
     attr_accessor :user, :user_details, :location, 
       :target_name, :pet_category, :pet
 
@@ -47,7 +49,7 @@ module AppOwnerHelper
       @user_details = make_user_detail
     end
 
-# ======= TODO - next refactor target    
+# ======= TODO A - next refactor target    
     def clean_nil_blank
       if @target_name.blank?
         replace_name
@@ -65,7 +67,7 @@ module AppOwnerHelper
     def default_admin_name
       "An_Admin"
     end
-# =======
+# ======= Finish A
     
     # -- TODO -- shouldn't be admin'ing stuff for giggles
     def provision_admin(name = default_admin_name)
@@ -99,6 +101,9 @@ module AppOwnerHelper
       @location ||= Location.find_or_create_by!(name: a_name ) do 
           |loc| loc.user_detail_id = @user.user_detail.id 
         end
+    end
+    
+    def make_location
     end
     
     def set_pet_category
