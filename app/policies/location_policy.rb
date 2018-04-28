@@ -6,7 +6,7 @@ class LocationPolicy < AppOwnerPolicy
     if user&.admin?
      scope.all
     else
-     scope.where(visible: true)
+     scope.where(active: true)
     end
    end
    

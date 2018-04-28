@@ -54,6 +54,9 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   end
   
   test "location is not a menu option when active is set to false" do
+    @policy_dummy.location.update(active: true)
+    locations = PolicyDummy::Scope.new(@policy_dummy.user, Location).scope 
+    refute Array(locations).include?(@policy_dummy.location)
   end
   
 end
