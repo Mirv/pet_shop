@@ -44,19 +44,34 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
       policy.edit?
     end
   end
- 
-  test "only ownerAdmin can see when published is set to false" do
+
+  test "when published visible to all" do
+    @policy_dummy.pet.update(published: true)
+    @policy_dummy.make_pet
+    pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve
+    # byebug
+    assert pets.include?(@policy_dummy.pet.id)
+  end
+
+  test "when not published nonOwnerAdmin do not see" do
     @policy_dummy.pet.update(published: false)
-    invisible = @policy_dummy.pet
-    @policy_dummy.provision_user
-    pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).scope #.all
-    refute Array(pets).include?(invisible)
+    pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve 
+    # byebug
+    refute pets.include?(@policy_dummy.pet.id)
   end
+
+    # pet = Pet.find(@policy_dummy.pet.id)
+    # pet.update(visible: false)
+    # @policy_dummy.provision_admin
+    # pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve
+    # assert Array(pets).include?(pet)
+
   
-  test "location is not a menu option when active is set to false" do
-    @policy_dummy.location.update(active: true)
-    locations = PolicyDummy::Scope.new(@policy_dummy.user, Location).scope 
-    refute Array(locations).include?(@policy_dummy.location)
-  end
+  # test "location is not a menu option when active is set to false" do
+  #   @policy_dummy.location.update(visible: false)
+  #   locations = PolicyDummy::Scope.new(@policy_dummy.user, Location).resolve 
+  #   # byebug
+  #   refute Array(locations).include?(@policy_dummy.location)
+  # end
   
 end

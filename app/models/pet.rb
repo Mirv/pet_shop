@@ -10,10 +10,16 @@ class Pet < ApplicationRecord
   validates_presence_of :pet_category_id
   validates_presence_of :location_id
 
+  scope :owner, -> { where(user_detail_id: @user.user_detail.id)}
   # All pets not disabled by admin
   scope :visible_pets, -> { where(visible: true) }
   # All pets not disabled by admin + published
   scope :published, -> { visible_pets.where(published: true) }
   # All pets not disabled + published + not sold
   scope :available_pets, -> { published.where(available: true) }
+  
+  # Uses
+  
+  # Owner scope
+  # 
 end
