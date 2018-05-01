@@ -24,10 +24,10 @@
    userAdmin?
   end
   
-  class Scope < Scope
+  # class Scope < Scope
     
     
-  end
+  # end
   
  end
  
