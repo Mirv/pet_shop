@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430143041) do
+ActiveRecord::Schema.define(version: 20180502134737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contents", force: :cascade do |t|
+    t.integer  "label"
+    t.text     "contents"
+    t.string   "name"
+    t.integer  "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_contents_on_member_id", using: :btree
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +34,12 @@ ActiveRecord::Schema.define(version: 20180430143041) do
     t.boolean  "visible",        default: true
     t.boolean  "active",         default: true
     t.integer  "user_detail_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pet_categories", force: :cascade do |t|
@@ -45,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180430143041) do
     t.boolean  "visible",         default: true
     t.boolean  "available",       default: true
     t.integer  "user_detail_id"
+    t.integer  "pet_status",      default: 5000
     t.index ["location_id"], name: "index_pets_on_location_id", using: :btree
     t.index ["pet_category_id"], name: "index_pets_on_pet_category_id", using: :btree
     t.index ["user_detail_id"], name: "index_pets_on_user_detail_id", using: :btree
@@ -77,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180430143041) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "contents", "members"
   add_foreign_key "pets", "locations"
   add_foreign_key "pets", "pet_categories"
   add_foreign_key "pets", "user_details"

@@ -8,6 +8,7 @@
         %th Description
         %th Pet categories
         %th Location
+        %th Status
         %th Published
         %th Available
         %th Owner
@@ -22,6 +23,7 @@
           %td= pet.description
           %td= pet.pet_category.name
           %td= pet.location.name
+          %td= pet.pet_status.titleize 
           %td= pet.published
           %td= pet.available
           - if pet.user_detail 

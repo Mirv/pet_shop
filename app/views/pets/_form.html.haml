@@ -10,6 +10,9 @@
     = f.input :description
     = f.association :pet_category
     = f.association :location
+    // f.select :color, Wine.colors.keys.map { |w| [w.humanize, w] }
+    = f.label "Pet Status"
+    = f.select :pet_status, Pet.pet_statuses.keys.map { |w| [w.humanize, w] }
     = f.input :published
     = f.input :available, inline_label: 'Available' 
     = f.input :visible, inline_label: 'Visible'

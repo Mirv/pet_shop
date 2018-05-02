@@ -4,7 +4,7 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-    @pets = policy_scope(Pet.owner)
+    @pets = policy_scope(Pet.for_sale)
   end
 
   # GET /pets/1
@@ -14,7 +14,7 @@ class PetsController < ApplicationController
 
   # GET /pets/new
   def new
-    @pet = Pet.new()
+    @pet = Pet.new
     authorize @pet
   end
 
@@ -71,7 +71,7 @@ class PetsController < ApplicationController
     end
 
     def pet_params
-      params.require(:pet).permit(:name, :description, :pet_category_id, :location_id, :published, :visible, :available, :user_detail_id)
+      params.require(:pet).permit(:name, :pet_status, :description, :pet_category_id, :location_id, :published, :visible, :available, :user_detail_id)
     end
     
 end
