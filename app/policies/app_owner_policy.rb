@@ -3,11 +3,10 @@ class AppOwnerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user&.user_detail&.admin
+      # if admin?
        scope.all
       else
-      # scope.where(visible: true)
-      scope
-      # scope.where(published: true, visible: true) # doesn't filter unpublished
+        scope
       end
     end
   end
