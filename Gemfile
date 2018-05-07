@@ -15,7 +15,7 @@ gem 'simple_form'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'pundit'
-# gem "administrate"
+gem "administrate"
 gem 'nokogiri' # required for minitest-have_tag
 
 group :development, :test do
