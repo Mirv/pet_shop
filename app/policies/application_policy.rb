@@ -63,5 +63,10 @@ class ApplicationPolicy
     def resolve
       scope
     end
+    
+    def resolve_admin
+      scope
+    end
+
   end
 end

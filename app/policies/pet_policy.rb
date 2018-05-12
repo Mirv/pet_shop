@@ -25,7 +25,13 @@
   end
   
   # class Scope < Scope
-    
+    def resolve
+      super
+    end    
+        
+    def resolve_admin
+      scope.where(owner: user.user_detail)
+    end
     
   # end
   

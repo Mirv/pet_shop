@@ -2,12 +2,11 @@ class AppOwnerPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user&.user_detail&.admin
-      # if admin?
-       scope.all
-      else
-        scope
-      end
+      scope
+    end
+    
+    def resolve_admin
+      scope
     end
   end
   
@@ -47,6 +46,7 @@ class AppOwnerPolicy < ApplicationPolicy
     if owner_check? || admin? 
       true
     else
+      # byebug
       not_authorized
     end
   end
