@@ -5,9 +5,7 @@ module Admin
     #
     def index
       super
-      @resources = policy_scope(Location.
-        page(params[:page]).
-        per(10))
+      @resources = policy_scope(Location)
     end
 
     # Define a custom finder by overriding the `find_resource` method:

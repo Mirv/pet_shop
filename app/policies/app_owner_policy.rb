@@ -3,6 +3,7 @@ class AppOwnerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope
+      # scope.where(visible: true)
     end
     
     def resolve_admin

@@ -24,16 +24,20 @@
    userAdmin?
   end
   
-  # class Scope < Scope
+  class Scope < Scope
     def resolve
-      super
+      # super
+      scope
     end    
         
     def resolve_admin
-      scope.where(owner: user.user_detail)
-    end
+     #works pre tweaks to scopes for location / pets included in app_owner_policy
+      scope.where(user_detail: user.user_detail)
+
+        # scope
+      end
     
-  # end
+  end
   
  end
  
