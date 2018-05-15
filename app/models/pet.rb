@@ -1,4 +1,10 @@
 class Pet < ApplicationRecord
+  # Alternatively could do mod 1000, 100, 10, 1 for visibility ... 
+  # ... anything ending in 0 is invisible, 1 is visible on index to every, ...
+  # ... 2 owner, 3 mod, 4 admin.   Then the range actual value is progression ...
+  # ... thru the life cycle
+  #
+  # - Current status
   # first 10,000 are user status, 20k's are business status, 30k's are anti-troll
   # posts after 5000 don't have to show up in the general display queries 
   enum pet_status: {
