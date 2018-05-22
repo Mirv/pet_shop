@@ -11,16 +11,17 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     @policy_dummy = AppOwnerHelper::PolicyDummy.new("A user")
   end
   
-  def purge_table(instance_of)
+  def self.purge_table(instance_of)
     Array(instance_of).each do |x|
       x.name.constantize.all.delete_all
     end
   end
 
-  test "owner can edit" do
-    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
-    assert_equal true, policy.owner_check?
-  end
+  # moving to pet_owner_policy_test.rb
+  # test "owner can edit" do
+  #   policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.pet)
+  #   assert_equal true, policy.owner_check?
+  # end
 
   test "admin can edit other owners records" do
     @policy_dummy.provision_admin
@@ -36,14 +37,15 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     assert_equal true, policy.edit?
   end
 
-  test "normal user fails edit" do
-    @policy_dummy.provision_user
-    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
+  # moving to pet_owner_policy_test.rb
+  # test "normal user fails edit" do
+  #   @policy_dummy.provision_user
+  #   policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
     
-    assert_raise Pundit::NotAuthorizedError do
-      policy.edit?
-    end
-  end
+  #   assert_raise Pundit::NotAuthorizedError do
+  #     policy.edit?
+  #   end
+  # end
 
   test "when pet visible all can see" do
     @policy_dummy.pet.update(visible: true)
@@ -57,6 +59,8 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     # byebug
     # assert Array(pets).include?(@policy_dummy.pet)
   end
+  
+
 
   test "when pet not visible nonOwnerAdmin do not see" do
     @policy_dummy.pet.update(visible: false)

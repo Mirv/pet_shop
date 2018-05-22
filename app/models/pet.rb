@@ -20,6 +20,11 @@ class Pet < ApplicationRecord
   validates_presence_of :pet_category_id
   validates_presence_of :location_id
 
+##### Next step to include 
+# ... scope :min_max_price ->(min,max) { where('price > ? AND price < ?', min, max) }
+# to build scopes out
+
+
   scope :transactions,  -> { where('pet_status = ?', 4000) }
   scope :drafts,        -> { where('pet_status = ?', 4000) }
 end
