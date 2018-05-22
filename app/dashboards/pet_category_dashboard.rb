@@ -54,7 +54,7 @@ class PetCategoryDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how pet categories are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(pet_category)
-  #   "PetCategory ##{pet_category.id}"
-  # end
+  def display_resource(pet_category)
+    "PetCategory ##{pet_category.name}"
+  end
 end

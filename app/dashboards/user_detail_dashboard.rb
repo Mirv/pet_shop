@@ -60,7 +60,7 @@ class UserDetailDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how user details are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user_detail)
-  #   "UserDetail ##{user_detail.id}"
-  # end
+  def display_resource(user_detail)
+    "UserDetail ##{user_detail.name}"
+  end
 end

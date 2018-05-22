@@ -31,6 +31,7 @@ class PetDashboard < Administrate::BaseDashboard
     :pet_category,
     :location,
     :user_detail,
+    :name,
     :id,
   ].freeze
 
