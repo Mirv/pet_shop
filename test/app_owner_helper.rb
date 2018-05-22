@@ -31,8 +31,13 @@ module AppOwnerHelper
   #
   #
   class PolicyDummy < AppOwnerPolicy
-    attr_accessor :user, :user_details, :location, 
-      :target_name, :pet_category, :pet
+    attr_accessor :user, 
+      :user_details, 
+      :location,
+      :target_name,
+      :pet_category,
+      :pet_status,
+      :pet
 
     def initialize(target_name = nil)
       @target_name = target_name
@@ -41,6 +46,12 @@ module AppOwnerHelper
       set_location
       set_pet_category
       set_pet
+    end
+    
+    def self.purge_table(instance_of)
+      Array(instance_of).each do |x|
+        x.name.constantize.all.delete_all
+      end
     end
     
     def provision_user(name = default_user_name)
