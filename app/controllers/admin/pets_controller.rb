@@ -5,8 +5,9 @@ module Admin
     #
     def index
       super
-      @resources = Pet.published.
-        page(params[:page]).per(10)
+      @user_resources = current_user.user_detail.pets
+      # @resources = @user_resources.published.
+      @resources = @user_resources.page(params[:page]).per(10)
     end
 
     # Define a custom finder by overriding the `find_resource` method:
