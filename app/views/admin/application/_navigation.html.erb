@@ -15,7 +15,10 @@ as defined by the routes in the `admin/` namespace
       class: "navigation__link navigation__link--#{nav_link_state(resource)}"
     ) %>
   <% end %>
-  <%= link_to "Back to Shopping", '/' %>
-  <%= render 'layouts/login'  %>
-  
+  <div class = "navigation__link">
+    <%= link_to "Back to Shopping", '/' %>
+  </div>
+  <div class = "navigation__link">
+    <%= render 'layouts/login'  %>
+  </div>
 </nav>
