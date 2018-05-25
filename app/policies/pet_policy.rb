@@ -5,37 +5,36 @@
   end
 
   def show?
-   scope.where(:id => record.id).exists?
+  scope.where(:id => record.id).exists?
   end
   
   def new?
-   create?
+  create?
   end
   
   def create?
-   user
+  user
   end
   
   def edit?
-   update?
+  update?
   end
   
   def update?
-   userAdmin?
+  userAdmin?
   end
   
   class Scope < Scope
     def resolve
-      # super
       scope
     end    
         
     def resolve_admin
-     #works pre tweaks to scopes for location / pets included in app_owner_policy
-      scope.where(user_detail: user.user_detail)
+      # scope
 
-        # scope
-      end
+      #works pre tweaks to scopes for location / pets included in app_owner_policy
+      scope.where(user_detail: user.user_detail)
+    end
     
   end
   

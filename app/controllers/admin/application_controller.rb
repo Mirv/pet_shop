@@ -8,7 +8,6 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     # include Pundit
     include Administrate::Punditize
-
     before_action :authenticate_admin
 
     def authenticate_admin
@@ -30,7 +29,7 @@ module Admin
     def user_not_authorized
       flash[:warning] = "You are not authorized to perform this action."
       # redirect_to(request.referrer || root_path)
-      redirect_to(root_path)
+      # redirect_to(root_path)
       # raise
     end
   end
