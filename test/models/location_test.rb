@@ -6,13 +6,11 @@ class LocationTest < ActiveSupport::TestCase
 
   def setup 
     @dummy = AppOwnerHelper::PolicyDummy.new("A user")
-    # byebug
   end
   
   # Test all of the location enums
 
   test "owner can close" do
-    @dummy.location.closed!
     assert @dummy.location.closed!
   end
   

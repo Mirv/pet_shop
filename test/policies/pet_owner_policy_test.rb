@@ -35,25 +35,6 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     refute @policy.destroy?
   end
   
-  # Test all of the pet_status enums
-  # ... this are actually just is the model working tests, not policy tests
-  
-  test "owner can draft" do
-    @policy.record.removed!
-    assert @policy.record.draft!
-  end
-  
-  test "owner can publish" do
-    assert @policy.record.published!
-  end
-
-  test "owner can cancel" do
-    assert @policy.record.cancelled!
-  end
-
-  test "owner can sell" do
-    assert @policy.record.sold!
-  end
   
 
 end

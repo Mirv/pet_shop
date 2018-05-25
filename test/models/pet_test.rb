@@ -5,9 +5,6 @@ require 'app_owner_helper' # located in app/policy
 class PetTest < ActiveSupport::TestCase
   include AppOwnerHelper
 
-  # test "the truth" do
-  #   assert true
-  # end
   def setup 
     @dummy = AppOwnerHelper::PolicyDummy.new("A user")
   end
@@ -16,7 +13,6 @@ class PetTest < ActiveSupport::TestCase
   # ... this are actually just is the model working tests, not policy tests
   
   test "owner can draft" do
-    @dummy.pet.removed!
     assert @dummy.pet.draft!
   end
   
