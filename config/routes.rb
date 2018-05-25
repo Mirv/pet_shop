@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :users
+    # resources :users
     resources :locations
     resources :pets
     resources :pet_categories
-    resources :user_details
+    # resources :user_details
 
     root to: "pets#index"
   end
