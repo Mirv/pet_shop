@@ -21,5 +21,5 @@ as defined by the routes in the `admin/` namespace
   <div class = "navigation__link">
     <%= render 'layouts/login'  %>
   </div>
-   <%= debug(@user.nil?) if Rails.env.development? %>
+   <%= debug(flash[:warning]) if Rails.env.development? %>
 </nav>

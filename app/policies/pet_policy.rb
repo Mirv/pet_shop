@@ -5,23 +5,23 @@
   end
 
   def show?
-  scope.where(:id => record.id).exists?
+    scope.where(:id => record.id).exists?
   end
   
   def new?
-  create?
+    create?
   end
   
   def create?
-  user
+    user
   end
   
   def edit?
-  update?
+    update?
   end
   
   def update?
-  userAdmin?
+    userAdmin?
   end
   
   class Scope < Scope
