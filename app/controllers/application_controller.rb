@@ -10,9 +10,11 @@ class ApplicationController < ActionController::Base
   private
  
     def user_not_authorized
+      # TODO segment out the non not-authorized errors
       flash[:warning] = "You are not authorized to perform this action."
-      redirect_to(request.referrer || root_path)
+      # redirect_to(request.referrer || root_path)
       # redirect_to(root_path)
+      redirect_to '/landing_page/show'
       # raise
     end
   

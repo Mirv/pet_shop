@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   resources :pets, except: :destroy
   resources :locations, except: :destroy
   resources :pet_categories, except: :destroy
+  resources :landing_page, only: :show
   root 'pets#index'
 end
