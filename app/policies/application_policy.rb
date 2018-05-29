@@ -1,9 +1,11 @@
 class ApplicationPolicy
+  include Pundit
   attr_reader :user, :record
 
   def initialize(user, record)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    # byebug
+    # raise NoUserProvidedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 
+      "AppPolicy: must be logged in - No user supplied or it was invalid user/pass" unless user
     @user = user.user_detail
     @record = record
   end
@@ -70,4 +72,11 @@ class ApplicationPolicy
     end
 
   end
+
+  class NoUserProvidedError < Pundit::NotAuthorizedError 
+    def initialize(options = {})
+      super
+    end
+  end
+
 end

@@ -17,6 +17,7 @@ class PetsController < ApplicationController
   def new
     @pet = Pet.new
     authorize @pet
+    
   end
 
   # GET /pets/1/edit

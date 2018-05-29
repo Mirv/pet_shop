@@ -48,7 +48,9 @@ class AppOwnerPolicy < ApplicationPolicy
       true
     else
       # byebug
-      not_authorized
+      # not_authorized
+      # raise Pundit::NotAuthorizedError, "Not authorized at AppOwnerPolicy#userAdmin?"
+      false
     end
   end
 
