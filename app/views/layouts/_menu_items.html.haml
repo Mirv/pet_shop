@@ -7,6 +7,4 @@
 %li{:class => 'pure-menu-item'}
   = link_to 'Owner Section', :admin_root, class: 'pure-menu-link'
 %li{:class => 'pure-menu-item'}
-  = current_user ? current_user.user_detail.name : ""
-%li{:class => 'pure-menu-item'}
   = render 'layouts/login'
