@@ -19,7 +19,7 @@ class PetDashboard < Administrate::BaseDashboard
     published: Field::Boolean,
     visible: Field::Boolean,
     available: Field::Boolean,
-    pet_status: Field::String.with_options(searchable: false),
+    pet_status: Administrate::Field::SelectEnumField
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -58,6 +58,9 @@ class PetDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :pet_category,
     :location,
+    # TODO - pull these two
+    # :user_detail.with_options(selected: @user_field),
+    # :user_detail,
     :user_detail,
     :name,
     :description,

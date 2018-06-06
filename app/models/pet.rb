@@ -19,6 +19,9 @@ class Pet < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :pet_category_id
   validates_presence_of :location_id
+  validates_presence_of :user_detail_id
+
+    
 
 ##### Next step to include 
 # ... scope :min_max_price ->(min,max) { where('price > ? AND price < ?', min, max) }
