@@ -126,3 +126,16 @@ Left over ...
 .field-unit__field
   = f.select(field.attribute) do
     = options_for_select(field.associated_resource_options, field.selected_option)
+    
+    
+    
+Part 2 - the location
+  New
+  /app/controllers/admin/locations_controller.rb
+  def new
+    @current_owner = current_user.user_detail
+  end
+  `rails generate administrate:views:new location`
+
+    <% page.resource.user_detail = @current_owner %>
+  

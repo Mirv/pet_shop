@@ -11,9 +11,10 @@ and renders all form fields for a resource's editable attributes.
   Contains helper methods to display a form,
   and knows which attributes should be displayed in the resource's form.
 
-[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form %>
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
 <%= form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
-<%-  @user_field %>
   <% if page.resource.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -31,7 +32,8 @@ and renders all form fields for a resource's editable attributes.
       </ul>
     </div>
   <% end %>
- 
+  <%= page.attributes.first.name %>
+
   <% page.attributes.each do |attribute| -%>
     <div class="field-unit field-unit--<%= attribute.html_class %>">
       <%= render_field attribute, f: f %>

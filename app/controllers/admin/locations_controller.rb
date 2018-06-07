@@ -3,11 +3,19 @@ module Admin
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
+    include Administrate::Punditize
+    before_action :authenticate_admin
+    
     def index
       super
       @resources = policy_scope(Location)
     end
 
+    def new
+      @resources = policy_scope(Location)
+      @current_owner = current_user.user_detail
+      super
+    end
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   Location.find_by!(slug: param)

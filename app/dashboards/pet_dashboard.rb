@@ -58,9 +58,6 @@ class PetDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :pet_category,
     :location,
-    # TODO - pull these two
-    # :user_detail.with_options(selected: @user_field),
-    # :user_detail,
     :user_detail,
     :name,
     :description,
