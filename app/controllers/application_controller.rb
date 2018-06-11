@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       flash[:warning] = "Not authorized ... #{exception}."
       # redirect_to(request.referrer || root_path)
       # redirect_to(root_path)
-      # redirect_to '/landing_page/show'
+      redirect_to '/landing_page/show'
       # render 'layouts/login' #  TODO set this to render login when failure
       # raise
     end

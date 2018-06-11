@@ -8,12 +8,14 @@ module Admin
     
     def index
       super
+      
+      # only changes to the user's own location
       @resources = policy_scope(Location)
     end
 
     def new
       @resources = policy_scope(Location)
-      @current_owner = current_user.user_detail
+      @current_owner = current_user.build_user_detail
       super
     end
     # Define a custom finder by overriding the `find_resource` method:

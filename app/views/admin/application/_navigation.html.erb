@@ -18,8 +18,5 @@ as defined by the routes in the `admin/` namespace
   <div class = "navigation__link">
     <%= link_to "Back to Shopping", '/' %>
   </div>
-  <div class = "navigation__link">
-    <%= render 'layouts/login'  %>
-  </div>
-   <%= debug(flash[:warning]) if Rails.env.development? && flash.present? %>
+  <%= render 'login'  %>
 </nav>
