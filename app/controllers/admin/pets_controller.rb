@@ -1,9 +1,9 @@
 module Admin
   class PetsController < Admin::ApplicationController
-
+    before_action :authenticate_admin
 ### TODO remove if not needed - start!
     include Administrate::Punditize
-    before_action :authenticate_admin
+    
 
     def authenticate_admin
       # TODO Add authentication logic here.
@@ -14,9 +14,10 @@ module Admin
     # you can overwrite any of the RESTful actions. For example:
     #
     def index
-      super
+      # byebug
       @user_resources = current_user.user_detail.pets
       @resources = @user_resources.page(params[:page]).per(10)
+      super
     end
 
     def create

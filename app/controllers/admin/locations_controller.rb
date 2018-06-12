@@ -12,18 +12,11 @@ module Admin
     end
     
     def index
-      super
-      
       # only changes to the user's own location
       @resources = policy_scope(Location)
+      super
     end
 
-    # def new
-    #   @resources = policy_scope(Location)
-    #   @current_owner = current_user.build_user_detail
-    #   super
-    # end
-    
     def create
       @current_owner = current_user.user_detail # required for assoc relationship
       params['location']['user_detail_id'] = @current_owner.id
