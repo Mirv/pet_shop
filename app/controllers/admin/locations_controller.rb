@@ -5,6 +5,11 @@ module Admin
     #
     include Administrate::Punditize
     before_action :authenticate_admin
+
+    def authenticate_admin
+      # TODO Add authentication logic here.
+      authenticate_user!
+    end
     
     def index
       super
@@ -13,11 +18,18 @@ module Admin
       @resources = policy_scope(Location)
     end
 
-    def new
-      @resources = policy_scope(Location)
-      @current_owner = current_user.build_user_detail
-      super
+    # def new
+    #   @resources = policy_scope(Location)
+    #   @current_owner = current_user.build_user_detail
+    #   super
+    # end
+    
+    def create
+      @current_owner = current_user.user_detail # required for assoc relationship
+      params['location']['user_detail_id'] = @current_owner.id
+      super 
     end
+    
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   Location.find_by!(slug: param)

@@ -58,7 +58,7 @@ class PetDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :pet_category,
     :location,
-    :user_detail,
+    # :user_detail,  # we hide it from form & overwrite permitted_attributes below
     :name,
     :description,
     :published,
@@ -73,4 +73,9 @@ class PetDashboard < Administrate::BaseDashboard
   # def display_resource(pet)
   #   "Pet ##{pet.id}"
   # end
+  
+  # since we hid user_detail_id from form, we permit it in strong_param here
+  def permitted_attributes
+    super + [:user_detail_id]
+  end
 end

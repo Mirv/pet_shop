@@ -52,7 +52,7 @@ class LocationDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :pets,
-    :user_detail,
+    # :user_detail,
     :name,
     :xcoordinate,
     :ycoordinate,
@@ -65,5 +65,10 @@ class LocationDashboard < Administrate::BaseDashboard
   #
   def display_resource(location)
     "Location ##{location.name}"
+  end
+  
+  # since we hid user_detail_id from form, we permit it in strong_param here
+  def permitted_attributes
+    super + [:user_detail_id]
   end
 end

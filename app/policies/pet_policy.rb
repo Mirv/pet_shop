@@ -1,5 +1,4 @@
  class PetPolicy < AppOwnerPolicy
-  
   def index?
     true
   end
@@ -35,9 +34,8 @@
       #works pre tweaks to scopes for location / pets included in app_owner_policy
       scope.where(user_detail: user.user_detail)
     end
-    
   end
-  
+
  end
  
  
