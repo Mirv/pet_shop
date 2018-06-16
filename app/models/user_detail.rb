@@ -4,5 +4,5 @@ class UserDetail < ApplicationRecord
   has_many :locations
   
   validates_presence_of :name
-
+  validates_presence_of :user_id
 end
