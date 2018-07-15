@@ -20,6 +20,7 @@
     %b Location:
     = @pet.location.name
   
-  = link_to 'Edit', edit_pet_path(@pet)
-  \|
+  - if policy(@pet).update?
+    = link_to 'Edit', edit_pet_path(@pet)
+    \|
   = link_to 'Back', pets_path

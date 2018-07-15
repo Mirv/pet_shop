@@ -8,10 +8,10 @@ class LocationDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    name: Field::String,
     pets: Field::HasMany,
     user_detail: Field::BelongsTo,
     id: Field::Number,
-    name: Field::String,
     xcoordinate: Field::Number.with_options(decimals: 2),
     ycoordinate: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
@@ -26,10 +26,10 @@ class LocationDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :pets,
-    :user_detail,
-    :id,
     :name,
+    :user_detail,
+    :pets,
+    :id,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

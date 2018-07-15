@@ -36,6 +36,7 @@ class AppOwnerPolicy < ApplicationPolicy
   end
 
   def owner_check?
+    # byebug
     record.user_detail_id == user.id
   end
 

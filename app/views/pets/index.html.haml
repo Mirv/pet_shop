@@ -1,5 +1,6 @@
 .header
-  %h1 Listing pets
+  %h1 Listing pets 
+
 .content
   %table{class: 'pure-table'}
     %thead
@@ -16,7 +17,9 @@
         %th
   
     %tbody
+      // = @pets.count
       // = debug(@pets.first)
+      // - @pets.each do |pet|
       - @pets.each do |pet|
         %tr
           %td= pet.name
@@ -33,8 +36,9 @@
           // %td= pet.user_detail.name
           // %td= pet.user_detail.first.name
           %td= link_to 'Show', pet
-          %td= link_to 'Edit', edit_pet_path(pet)
+          - if policy(pet).update?
+            %td= link_to 'Edit', edit_pet_path(pet)
 
   %br
   
-  = link_to 'New Pet', new_pet_path
+  // = link_to 'New Pet', new_pet_path

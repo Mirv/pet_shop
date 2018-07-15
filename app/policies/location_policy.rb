@@ -7,7 +7,8 @@ class LocationPolicy < AppOwnerPolicy
     end
         
     def resolve_admin
-      scope.where(user_detail_id: user.user_detail)
+      scope
+      # scope.where(user_detail_id: user.user_detail)
     end 
   end
 end
