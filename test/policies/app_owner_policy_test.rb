@@ -57,7 +57,6 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     assert_includes pets, @policy_dummy.pet
   end
   
-
   # this test is irrelevent as I need new allowed codes enum for policies
   test "when pet not visible nonOwnerAdmin do not see" do
     @policy_dummy.pet.update(visible: false)
@@ -71,7 +70,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     @policy_dummy.location.update(active: true)
     @policy_dummy2 = AppOwnerHelper::PolicyDummy.new("A new user")
     location_list = PolicyDummy::Scope.new(@policy_dummy2, Location).resolve
-    assert location_list.includes @policy_dummy.location
+    assert_includes location_list, @policy_dummy.location
   end
 
   test "when location not visible nonOwnerAdmin do not see" do
