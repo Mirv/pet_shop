@@ -23,6 +23,10 @@
     userAdmin?
   end
   
+  def show_link?
+    
+  end
+  
   class Scope < Scope
     def resolve
       scope
