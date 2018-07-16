@@ -2,10 +2,11 @@ class AppOwnerPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope
-      # scope.where(visible: true)
+      # scope
+      scope.where(visible: true)
     end
     
+    # necessary to make the administrate panel work
     def resolve_admin
       scope
     end

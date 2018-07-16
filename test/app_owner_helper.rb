@@ -109,8 +109,10 @@ module AppOwnerHelper
     
     def set_location
       a_name = "#{@target_name}'s Al-passo"
-      @location ||= Location.find_or_create_by!(name: a_name ) do 
-          |loc| loc.user_detail_id = @user.user_detail.id 
+      @location ||= Location.find_or_create_by!(name: a_name ) do |loc| 
+          loc.user_detail_id = @user.user_detail.id 
+          loc.xcoordinate = 1
+          loc.ycoordinate = 1
         end
     end
     

@@ -6,15 +6,18 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   include AppOwnerHelper
   include Pundit
 
-  def setup
-    purge_table(Pet)
-    @policy_dummy = AppOwnerHelper::PolicyDummy.new("A user")
-  end
-  
-  def self.purge_table(instance_of)
+  def purge_table(instance_of)
     Array(instance_of).each do |x|
       x.name.constantize.all.delete_all
     end
+  end
+  
+  def setup
+    # purge_table(Pet)
+    Array(Pet).each do |x|
+      x.name.constantize.all.delete_all
+    end
+    @policy_dummy = AppOwnerHelper::PolicyDummy.new("A user")
   end
 
   # moving to pet_owner_policy_test.rb
@@ -34,7 +37,7 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     @policy_dummy.provision_admin("Cheeser Admin Soup")
     policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
     assert_equal true, policy.admin?, "is an Admin check failed"
-    assert_equal true, policy.edit?
+    assert_equal true, policy.edit?, "the edit? check failed"
   end
 
   # moving to pet_owner_policy_test.rb
@@ -49,36 +52,31 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
 
   test "when pet visible all can see" do
     @policy_dummy.pet.update(visible: true)
-    # pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet)
-    # pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve
     pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve
-    
-        # byebug
-    # assert Array(pets).include?(@policy_dummy.pet)
     Array(pets).include?(@policy_dummy.pet)
-    # byebug
-    # assert Array(pets).include?(@policy_dummy.pet)
+    assert_includes pets, @policy_dummy.pet
   end
   
 
-
+  # this test is irrelevent as I need new allowed codes enum for policies
   test "when pet not visible nonOwnerAdmin do not see" do
     @policy_dummy.pet.update(visible: false)
-    # pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve 
-    refute Array(pets).include?(@policy_dummy.pet)
+    pet = @policy_dummy.pet
+    @policy_dummy3 = AppOwnerHelper::PolicyDummy.new("A new user")
+    pets = PolicyDummy::Scope.new(@policy_dummy3.user, Pet).resolve
+    refute_includes pets, pet
   end
   
   test "when location visible all can see" do
     @policy_dummy.location.update(active: true)
-    locations = PolicyDummy::Scope.new(@policy_dummy.user, Location).resolve
-    # byebug
-    assert Array(locations).include?(@policy_dummy.location)
+    @policy_dummy2 = AppOwnerHelper::PolicyDummy.new("A new user")
+    location_list = PolicyDummy::Scope.new(@policy_dummy2, Location).resolve
+    assert location_list.includes @policy_dummy.location
   end
 
   test "when location not visible nonOwnerAdmin do not see" do
-    @policy_dummy.location.update(active: false)
+    @policy_dummy.location.update(visible: false)
     locations = PolicyDummy::Scope.new(@policy_dummy.user, Location).resolve 
-    # byebug
-    refute Array(locations).include?(@policy_dummy.location)
+    refute_includes locations, @policy_dummy.location
   end
 end
