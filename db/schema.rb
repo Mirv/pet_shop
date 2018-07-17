@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522181928) do
+ActiveRecord::Schema.define(version: 20180611194038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20180522181928) do
     t.boolean  "available",       default: true
     t.integer  "user_detail_id"
     t.integer  "pet_status",      default: 5000
+    t.string   "spicey"
     t.index ["location_id"], name: "index_pets_on_location_id", using: :btree
     t.index ["pet_category_id"], name: "index_pets_on_pet_category_id", using: :btree
     t.index ["user_detail_id"], name: "index_pets_on_user_detail_id", using: :btree

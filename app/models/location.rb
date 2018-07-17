@@ -6,6 +6,7 @@ class Location < ApplicationRecord
   has_many :pets
   belongs_to :user_detail
   
+  validates_presence_of :location_status
   validates_presence_of :user_detail_id
   validates_presence_of :name
   validates_presence_of :xcoordinate

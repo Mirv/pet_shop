@@ -13,31 +13,33 @@
         %th Published
         %th Available
         %th Owner
-        %th
-        %th
+        // %th
+        // %th
   
     %tbody
       // = @pets.count
       // = debug(@pets.first)
       // - @pets.each do |pet|
-      - @pets.each do |pet|
-        %tr
-          %td= pet.name
-          %td= pet.description
-          %td= pet.pet_category.name
-          %td= pet.location.name
-          %td= pet.pet_status.titleize 
-          %td= pet.published
-          %td= pet.available
-          - if pet.user_detail 
-            %td= pet.user_detail.name
-          - else 
-            %td= "Crap"
-          // %td= pet.user_detail.name
-          // %td= pet.user_detail.first.name
-          %td= link_to 'Show', pet
-          - if policy(pet).update?
-            %td= link_to 'Edit', edit_pet_path(pet)
+      - if @pets.count > 0
+        - @pets.each do |pet|
+          %tr
+            %td= pet.name
+            %td= pet.description
+            %td= pet.pet_category.name
+            %td= pet.location.name
+            %td= pet.pet_status.titleize 
+            %td= pet.published
+            %td= pet.available
+            - if pet.user_detail 
+              %td= pet.user_detail.name
+            - else 
+              %td= "Crap"
+            // %td= pet.user_detail.name
+            // %td= pet.user_detail.first.name
+            %td= link_to 'Show', pet
+            - if policy(pet).edit?
+              %td= link_to 'Edit', edit_pet_path(pet)
+
 
   %br
   

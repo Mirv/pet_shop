@@ -20,9 +20,12 @@ class Pet < ApplicationRecord
   validates_presence_of :pet_category_id
   validates_presence_of :location_id
   validates_presence_of :user_detail_id
+  validates_presence_of :pet_status
   # validates_inclusion_of :pet_status, :in => 0..35000, :allow_nil => true, :message => 'must be between 3 and 8 feet'
 
 
   scope :transactions,  -> { where('pet_status = ?', 4000) }
   scope :drafts,        -> { where('pet_status = ?', 4000) }
+  scope :test_scope,    -> { where('pet_status > ?', 1)    }
+  scope :test_scope2,   -> { where('pet_status < ?', 5500) }
 end

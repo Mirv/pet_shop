@@ -29,20 +29,21 @@ class PetDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :pet_category,
+    :name,
     :location,
     :user_detail,
-    :name,
-    :id,
+    :pet_status,
+    # :id,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :pet_category,
+    :name,
     :location,
     :user_detail,
     :id,
-    :name,
     :description,
     :created_at,
     :updated_at,

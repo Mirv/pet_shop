@@ -2,8 +2,8 @@ class AppOwnerPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      # scope
-      scope.where(visible: true)
+      scope
+      # scope.where(visible: true)
     end
     
     # necessary to make the administrate panel work
@@ -12,7 +12,7 @@ class AppOwnerPolicy < ApplicationPolicy
     end
   end
   
-  def index?
+  def index? 
     true
   end
   
@@ -38,11 +38,11 @@ class AppOwnerPolicy < ApplicationPolicy
 
   def owner_check?
     # byebug
-    record.user_detail_id == user.id
+    record.user_detail_id == user&.id
   end
 
   def admin?
-    user.admin
+    user&.admin  # gracefully fails, but allows access when shouldn't
   end
 
   def userAdmin?

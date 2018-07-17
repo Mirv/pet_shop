@@ -4,8 +4,9 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-   @pets = Pet.all
-    # @pets = policy_scope(Pet)
+  # @pets = Pet.all
+  # byebug
+    @pets = policy_scope(Pet)
   end
 
   # GET /pets/1

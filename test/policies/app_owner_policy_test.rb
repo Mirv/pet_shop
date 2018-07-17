@@ -33,12 +33,13 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
     assert_equal true, policy.edit?, "Edit by admin failed"
   end
 
-  test "only owner admin can hide location" do
-    @policy_dummy.provision_admin("Cheeser Admin Soup")
-    policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
-    assert_equal true, policy.admin?, "is an Admin check failed"
-    assert_equal true, policy.edit?, "the edit? check failed"
-  end
+  # moving to location tests
+  # test "only owner admin can hide location" do
+  #   @policy_dummy.provision_admin("Cheeser Admin Soup")
+  #   policy = AppOwnerPolicy.new(@policy_dummy.user, @policy_dummy.location)
+  #   assert_equal true, policy.admin?, "is an Admin check failed"
+  #   assert_equal true, policy.edit?, "the edit? check failed"
+  # end
 
   # moving to pet_owner_policy_test.rb
   # test "normal user fails edit" do
@@ -53,17 +54,15 @@ class AppOwnerPolicyTest < ActiveSupport::TestCase
   test "when pet visible all can see" do
     @policy_dummy.pet.update(visible: true)
     pets = PolicyDummy::Scope.new(@policy_dummy.user, Pet).resolve
-    Array(pets).include?(@policy_dummy.pet)
     assert_includes pets, @policy_dummy.pet
   end
   
   # this test is irrelevent as I need new allowed codes enum for policies
   test "when pet not visible nonOwnerAdmin do not see" do
     @policy_dummy.pet.update(visible: false)
-    pet = @policy_dummy.pet
     @policy_dummy3 = AppOwnerHelper::PolicyDummy.new("A new user")
     pets = PolicyDummy::Scope.new(@policy_dummy3.user, Pet).resolve
-    refute_includes pets, pet
+    refute_includes pets, @policy_dummy.pet
   end
   
   test "when location visible all can see" do
