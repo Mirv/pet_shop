@@ -79,6 +79,9 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_bot (4.10.0)
+      activesupport (>= 3.0.0)
+    ffaker (2.9.0)
     ffi (1.9.23)
     formatador (0.2.5)
     globalid (0.4.1)
@@ -263,6 +266,8 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise
+  factory_bot
+  ffaker
   guard
   guard-minitest
   haml
